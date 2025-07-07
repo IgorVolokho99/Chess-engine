@@ -36,9 +36,3 @@ class Position:
 
     def generate_moves(self) -> None:
         pass
-
-
-if __name__ == "__main__":
-    pos = Position("rnbq1bnr/pppkpppp/8/3p4/4P3/5N2/PPPP1PPP/RNBQKB1R w KQ - 2 3")
-    for partt in pos._board:
-        print(partt)
