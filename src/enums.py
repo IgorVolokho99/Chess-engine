@@ -15,5 +15,5 @@ class FigureType(Enum):
     queen = StrEnum
     rook = StrEnum
     bishop = StrEnum
-    Knight = StrEnum
-    Pawn = StrEnum
+    knight = StrEnum
+    pawn = StrEnum

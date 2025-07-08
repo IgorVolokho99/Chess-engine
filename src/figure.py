@@ -3,12 +3,33 @@
 from src.coord import Coord
 from src.enums import FigureType, Color
 
+from_char_to_figure = {
+    'K': FigureType.king,
+    'k': FigureType.king,
+    'Q': FigureType.queen,
+    'q': FigureType.queen,
+    'R': FigureType.rook,
+    'r': FigureType.rook,
+    'B': FigureType.bishop,
+    'b': FigureType.bishop,
+    'N': FigureType.knight,
+    'n': FigureType.knight,
+    'P': FigureType.pawn,
+    'p': FigureType.pawn,
+}
+
 
 class Figure:
     """Реализация шахматной фигуры."""
 
-    def __init__(self, type_of_figure: FigureType, color: Color, coord: Coord, possible_moves: list[Coord]) -> None:
-        self.type_of_figure = type_of_figure
-        self.color = color
+    # def __init__(self, type_of_figure: FigureType, color: Color, coord: Coord, possible_moves: list[Coord]) -> None:
+    #     self.type_of_figure = type_of_figure
+    #     self.color = color
+    #     self.coord = coord
+    #     self.possible_moves = possible_moves
+
+    def __init__(self, char: str, coord: Coord) -> None:
+        self.type_of_figure = from_char_to_figure[char]
+        self.color = Color.white if char.isupper() else Color.black
         self.coord = coord
-        self.possible_moves = possible_moves
+        self.possible_moves = None
