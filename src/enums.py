@@ -5,15 +5,16 @@ from enum import Enum, StrEnum
 
 class Color(Enum):
     """Перечисление, для реализации цвета фигуры."""
-    black = StrEnum
-    white = StrEnum
+    black = "black"
+    white = "white"
 
 
 class FigureType(Enum):
     """Перечисление, для реализации типа фигуры."""
-    king = StrEnum
-    queen = StrEnum
-    rook = StrEnum
-    bishop = StrEnum
-    knight = StrEnum
-    pawn = StrEnum
+    king = "king"
+    queen = "queen"
+    rook = "rook"
+    bishop = "bishop"
+    knight = "knight"
+    pawn = "pawn"
+
