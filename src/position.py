@@ -19,6 +19,8 @@ class Position:
         self._black_figures = []
         self._white_coords = []
         self._black_coords = []
+        self._coord_of_white_king = None
+        self._coord_of_black_king = None
         self._fen_state = FenState(fen)
         self.generate_board_from_fen()
         self.fill_figures_and_coords()

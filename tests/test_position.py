@@ -89,3 +89,16 @@ class TestPosition:
     def test_move_clock(self, fen: str, expected_count: int, comment: str) -> None:
         pos = Position(fen)
         assert pos._fen_state.move_clock == expected_count, comment
+
+    @pytest.mark.parametrize(
+        "fen, expected_white_coord, expected_black_coord, comment",
+        [
+            ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Coord(4, 7), Coord(4, 0), "Test_1"),
+            ("8/8/4k3/8/8/2K5/8/8 w - - 0 1", Coord(2, 5), Coord(4, 2), "Test_1"),
+        ]
+    )
+    def test_coordinates_of_kings(self, fen: str, expected_white_coord: Coord, expected_black_coord: Coord,
+                                  comment: str) -> None:
+        pos = Position(fen)
+        assert pos._coord_of_white_king == expected_white_coord, comment + " 1 assert"
+        assert pos._coord_of_black_king == expected_black_coord, comment + " 2 assert"

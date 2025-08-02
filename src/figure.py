@@ -22,12 +22,6 @@ from_char_to_figure = {
 class Figure:
     """Реализация шахматной фигуры."""
 
-    # def __init__(self, type_of_figure: FigureType, color: Color, coord: Coord, possible_moves: list[Coord]) -> None:
-    #     self.type_of_figure = type_of_figure
-    #     self.color = color
-    #     self.coord = coord
-    #     self.possible_moves = possible_moves
-
     def __init__(self, char: str, coord: Coord) -> None:
         self.type_of_figure = from_char_to_figure[char]
         self.color = Color.white if char.isupper() else Color.black
