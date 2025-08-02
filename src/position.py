@@ -44,6 +44,10 @@ class Position:
                 if cell.isdigit():
                     j += int(cell)
                 else:
+                    if cell == 'K':
+                        self._coord_of_white_king = Coord(j, i)
+                    elif cell == 'k':
+                        self._coord_of_black_king = Coord(j, i)
                     self._add_figure(cell, j, i)
                     self._board[i][j] = cell
                     j += 1
