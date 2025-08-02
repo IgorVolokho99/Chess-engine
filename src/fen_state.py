@@ -12,10 +12,10 @@ class FenState:
         """Инициализирует поля объектами None."""
         self.board_part = None
         self.active_color = None
-        self.white_long_castling = None
-        self.white_short_castling = None
-        self.black_long_castling = None
-        self.black_short_castling = None
+        self.white_long_castling = False
+        self.white_short_castling = False
+        self.black_long_castling = False
+        self.black_short_castling = False
         self.en_passant_cell = None
         self.moves_without_pawn = None
         self.move_clock = None
@@ -45,7 +45,7 @@ class FenState:
             letter = fen_parts[3][0]
             digit = fen_parts[3][1]
             coord_x = from_letter_to_digit[letter]
-            coord_y = 7 - int(digit)
+            coord_y = 8 - int(digit)
             self.en_passant_cell = Coord(coord_x, coord_y)
 
         if fen_parts[4] == '-':
