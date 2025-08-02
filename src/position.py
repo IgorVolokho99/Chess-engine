@@ -64,6 +64,10 @@ class Position:
 
 
 if __name__ == "__main__":
+    import time
+    start_time = time.time()
     position = Position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
-    print(position._white_coords)
-    print(position._black_coords)
+    # print(position._white_coords)
+    # print(position._black_coords)
+    end_time = time.time()
+    print(end_time - start_time)
