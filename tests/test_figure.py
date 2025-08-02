@@ -65,3 +65,57 @@ class TestFigure:
     def test_check_to_black_king_rook_without_check(self, fen: str, comment:str) -> None:
         pos = Position(fen)
         assert not Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
+
+    @pytest.mark.parametrize(
+        "fen, comment",
+        [
+            ("8/8/5k2/8/2K5/8/4b3/8 w - - 0 1", "Test_1"),
+            ("8/2k5/8/5b2/6K1/8/8/8 w - - 0 1", "Test_2"),
+            ("1k3K2/8/7b/8/8/b7/8/8 w - - 0 1", "Test_3"),
+            ("1k6/8/8/2b1b3/3K4/2b1b3/8/8 w - - 0 1", "Test_4"),
+        ]
+    )
+    def test_check_to_white_king_bishop_with_check(self, fen: str, comment:str) -> None:
+        pos = Position(fen)
+        assert Figure.check_to_king(pos._board, pos._coord_of_white_king, Color.white)
+
+    @pytest.mark.parametrize(
+        "fen, comment",
+        [
+            ("8/8/5K2/8/2k5/8/4B3/8 w - - 0 1", "Test_1"),
+            ("8/2K5/8/5B2/6k1/8/8/8 w - - 0 1", "Test_2"),
+            ("1K3k2/8/7B/8/8/b7/8/8 w - - 0 1", "Test_3"),
+            ("1K6/8/8/2B1B3/3k4/2B1B3/8/8 w - - 0 1", "Test_4"),
+        ]
+    )
+    def test_check_to_white_king_bishop_with_check(self, fen: str, comment:str) -> None:
+        pos = Position(fen)
+        assert Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
+
+
+    @pytest.mark.parametrize(
+        "fen, comment",
+        [
+            ("1k6/8/8/8/3K4/8/2B5/8 w - - 0 1", "Test_1"),
+            ("1k6/8/8/3B4/3K4/3B4/2B5/8 w - - 0 1", "Test_2"),
+            ("1k6/8/8/6K1/8/4B3/8/2b5 w - - 0 1", "Test_3"),
+            ("1k1b4/4p3/8/6K1/8/4B3/8/2b5 w - - 0 1", "Test_4"),
+        ]
+    )
+    def test_check_to_white_king_bishop_without_check(self, fen: str, comment:str) -> None:
+        pos = Position(fen)
+        assert not Figure.check_to_king(pos._board, pos._coord_of_white_king, Color.white)
+
+
+    @pytest.mark.parametrize(
+        "fen, comment",
+        [
+            ("1K6/8/8/8/3k4/8/2b5/8 w - - 0 1", "Test_1"),
+            ("1K6/8/8/3b4/3k4/3b4/2b5/8 w - - 0 1", "Test_2"),
+            ("1K6/8/8/6k1/8/4b3/8/2B5 w - - 0 1", "Test_3"),
+            ("1K1B4/4P3/8/6k1/8/4b3/8/2B5 w - - 0 1", "Test_4"),
+        ]
+    )
+    def test_check_to_black_king_bishop_without_check(self, fen: str, comment:str) -> None:
+        pos = Position(fen)
+        assert not Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
