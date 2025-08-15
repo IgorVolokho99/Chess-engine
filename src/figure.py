@@ -131,4 +131,75 @@ class Figure:
             start_y -= 1
             start_x -= 1
 
+        # Knight Part
+        knight_y, knight_x = coord_of_king.y + 2, coord_of_king.x + 1
+        if knight_y < 8 and knight_x < 8:
+            cell = board[knight_y][knight_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
+                return True
+
+        knight_y, knight_x = coord_of_king.y + 1, coord_of_king.x + 2
+        if knight_y < 8 and knight_x < 8:
+            cell = board[knight_y][knight_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
+                return True
+
+        knight_y, knight_x = coord_of_king.y + 1, coord_of_king.x - 2
+        if knight_y < 8 and knight_x >= 0:
+            cell = board[knight_y][knight_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
+                return True
+
+        knight_y, knight_x = coord_of_king.y - 1, coord_of_king.x + 2
+        if knight_y >= 0 and knight_x < 8:
+            cell = board[knight_y][knight_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
+                return True
+
+        knight_y, knight_x = coord_of_king.y - 1, coord_of_king.x - 2
+        if knight_y >= 0 and knight_x >= 0:
+            cell = board[knight_y][knight_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
+                return True
+
+        knight_y, knight_x = coord_of_king.y + 2, coord_of_king.x - 1
+        if knight_y < 8 and knight_x >= 0:
+            cell = board[knight_y][knight_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
+                return True
+
+        knight_y, knight_x = coord_of_king.y - 2, coord_of_king.x + 1
+        if knight_y >= 0 and knight_x < 8:
+            cell = board[knight_y][knight_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
+                return True
+
+        knight_y, knight_x = coord_of_king.y - 2, coord_of_king.x - 1
+        if knight_y >= 0 and knight_x >= 0:
+            cell = board[knight_y][knight_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
+                return True
+
+        # Pawn part
+        if my_case:
+            pawn_y = coord_of_king.y - 1
+            pawn_x = coord_of_king.x - 1
+            if pawn_y >= 0 and pawn_x >= 0 and board[pawn_y][pawn_x].isupper() != my_case and \
+                    board[pawn_y][pawn_x].isupper() == 'P':
+                return True
+            pawn_x = coord_of_king.x + 1
+            if pawn_y >= 0 and pawn_x <= 8 and board[pawn_y][pawn_x].isupper() != my_case and \
+                    board[pawn_y][pawn_x].isupper() == 'P':
+                return True
+        else:
+            pawn_y = coord_of_king.y + 1
+            pawn_x = coord_of_king.x - 1
+            if pawn_y < 8 and pawn_x >= 0 and board[pawn_y][pawn_x].isupper() != my_case and \
+                    board[pawn_y][pawn_x].isupper() == 'P':
+                return True
+            pawn_x = coord_of_king.x + 1
+            if pawn_y < 8 and pawn_x <= 8 and board[pawn_y][pawn_x].isupper() != my_case and \
+                    board[pawn_y][pawn_x].isupper() == 'P':
+                return True
+
         return False

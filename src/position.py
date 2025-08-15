@@ -1,5 +1,6 @@
 """Модуль, который содержит реализацию шахматной позиции."""
 from src.coord import Coord
+from src.enums import Color
 from src.fen_state import FenState
 from src.figure import Figure
 
@@ -72,7 +73,9 @@ class Position:
 if __name__ == "__main__":
     import time
     start_time = time.time()
-    position = Position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    # position = Position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    position = Position("1k1b4/4p3/8/6K1/8/4B3/8/2b5 w - - 0 1")
+    Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
     # print(position._white_coords)
     # print(position._black_coords)
     end_time = time.time()
