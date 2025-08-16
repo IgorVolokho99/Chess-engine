@@ -24,14 +24,113 @@ class Figure:
 
     def __init__(self, char: str, coord: Coord) -> None:
         self.type_of_figure = from_char_to_figure[char]
+        self.char = char
         self.color = Color.white if char.isupper() else Color.black
         self.coord = coord
-        self.possible_moves = None
+        self.possible_moves = []
 
     def generate_move(self, board: list[list], coord_of_king: Coord) -> None:
+        if self.color == Color.white:
+            my_case = True
+        else:
+            my_case = False
         match self.type_of_figure:
             case FigureType.rook:
-                pass
+                # DOWN
+                for changed_y in range(self.coord.y + 1, 8):
+                    cell = board[changed_y][self.coord.x]
+                    if cell != '-':
+                        if cell.isupper() == my_case:
+                            break
+                        elif cell.isupper() != my_case:
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[changed_y][self.coord.x] = self.char
+
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(Coord(changed_y, self.coord.x))
+
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[changed_y][self.coord.x] = cell
+                            break
+                    else:
+                        board[self.coord.y][self.coord.x] = '-'
+                        board[changed_y][self.coord.x] = self.char
+                        if not self.check_to_king(board, coord_of_king, self.color):
+                            self.possible_moves.append(Coord(changed_y, self.coord.x))
+                        board[self.coord.y][self.coord.x] = self.char
+                        board[changed_y][self.coord.x] = cell
+                # UP
+                for changed_y in range(self.coord.y - 1, -1, -1):
+                    cell = board[changed_y][self.coord.x]
+                    if cell != '-':
+                        if cell.isupper() == my_case:
+                            break
+                        elif cell.isupper() != my_case:
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[changed_y][self.coord.x] = self.char
+
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(Coord(changed_y, self.coord.x))
+
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[changed_y][self.coord.x] = cell
+                            break
+                    else:
+                        board[self.coord.y][self.coord.x] = '-'
+                        board[changed_y][self.coord.x] = self.char
+                        if not self.check_to_king(board, coord_of_king, self.color):
+                            self.possible_moves.append(Coord(changed_y, self.coord.x))
+                        board[self.coord.y][self.coord.x] = self.char
+                        board[changed_y][self.coord.x] = cell
+
+                # RIGHT
+                for changed_x in range(self.coord.x + 1, 8):
+                    cell = board[self.coord.y][changed_x]
+                    if cell != '-':
+                        if cell.isupper() == my_case:
+                            break
+                        elif cell.isupper() != my_case:
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[self.coord.y][changed_x] = self.char
+
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(Coord(self.coord.y, changed_x))
+
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[self.coord.y][self.coord.x] = cell
+                            break
+                    else:
+                        board[self.coord.y][self.coord.x] = '-'
+                        board[self.coord.y][changed_x] = self.char
+                        if not self.check_to_king(board, coord_of_king, self.color):
+                            self.possible_moves.append(Coord(self.coord.y, changed_x))
+                        board[self.coord.y][self.coord.x] = self.char
+                        board[self.coord.y][changed_x] = cell
+
+                # LEFT
+                for changed_x in range(self.coord.x - 1, -1, -1):
+                    cell = board[self.coord.y][changed_x]
+                    if cell != '-':
+                        if cell.isupper() == my_case:
+                            break
+                        elif cell.isupper() != my_case:
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[self.coord.y][changed_x] = self.char
+
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(Coord(self.coord.y, changed_x))
+
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[self.coord.y][self.coord.x] = cell
+                            break
+                    else:
+                        board[self.coord.y][self.coord.x] = '-'
+                        board[self.coord.y][changed_x] = self.char
+                        if not self.check_to_king(board, coord_of_king, self.color):
+                            self.possible_moves.append(Coord(self.coord.y, changed_x))
+                        board[self.coord.y][self.coord.x] = self.char
+                        board[self.coord.y][changed_x] = cell
+
             case FigureType.bishop:
                 pass
             case FigureType.queen:

@@ -4,21 +4,21 @@
 class Coord:
     """Реализация шахматных координат."""
 
-    def __init__(self, x: int = None, y: int = None) -> None:
+    def __init__(self, y: int = None, x: int = None) -> None:
         """Инициализирует поля x и y числами или значениями по умолчанию.
 
         Args:
-            x(int) : Координата по горизонтали;
             y(int) : Координата по вертикали.
+            x(int) : Координата по горизонтали;
         """
-        self.x = x
         self.y = y
+        self.x = x
 
     def __eq__(self, other: "Coord") -> bool:
-        return self.x == other.x and self.y == other.y
+        return self.y == other.y and self.x == other.x
 
     def __str__(self) -> str:
-        return f"({self.x}, {self.y})"
+        return f"({self.y}, {self.x})"
 
     def __repr__(self) -> str:
-        return f"Coord({self.x}, {self.y})"
+        return f"Coord({self.y}, {self.x})"

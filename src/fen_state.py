@@ -46,7 +46,7 @@ class FenState:
             digit = fen_parts[3][1]
             coord_x = from_letter_to_digit[letter]
             coord_y = 8 - int(digit)
-            self.en_passant_cell = Coord(coord_x, coord_y)
+            self.en_passant_cell = Coord(coord_y, coord_x)
 
         if fen_parts[4] == '-':
             self.moves_without_pawn = 0

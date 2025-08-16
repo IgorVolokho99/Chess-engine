@@ -47,15 +47,15 @@ class Position:
                     j += int(cell)
                 else:
                     if cell == 'K':
-                        self._coord_of_white_king = Coord(j, i)
+                        self._coord_of_white_king = Coord(i, j)
                     elif cell == 'k':
-                        self._coord_of_black_king = Coord(j, i)
-                    self._add_figure(cell, j, i)
+                        self._coord_of_black_king = Coord(i, j)
+                    self._add_figure(cell, i, j)
                     self._board[i][j] = cell
                     j += 1
 
-    def _add_figure(self, char: str, x: int, y: int) -> None:
-        coord = Coord(x, y)
+    def _add_figure(self, char: str, y: int, x: int) -> None:
+        coord = Coord(y, x)
         figure = Figure(char, coord)
         if char.isupper():
             self._white_figures.append(figure)
@@ -73,12 +73,43 @@ class Position:
         for figure in active_figures:
             figure.generate_move(self._board, coord_of_king)
 
+    def show_board(self) -> None:
+        for line in self._board:
+            for cell in line:
+                print(cell, end=' ')
+            print()
+
+    def show_moves(self) -> None:
+        for y, line in enumerate(self._board):
+            for x, cell in enumerate(line):
+                if cell == '-':
+                    maybe_attack = Coord(y, x)
+                    for figure in self._white_figures:
+                        if maybe_attack in figure.possible_moves:
+                            print('*', end=' ')
+                            break
+                    else:
+                        print(cell, end=' ')
+                else:
+                    maybe_attack = Coord(y, x)
+                    for figure in self._white_figures:
+                        if maybe_attack in figure.possible_moves:
+                            print('!', end=' ')
+                            break
+                    else:
+                        print(cell, end=' ')
+            print()
+
 
 if __name__ == "__main__":
     import time
 
     start_time = time.time()
-    position = Position("1k1b4/4p3/8/6K1/8/4B3/8/2b5 w - - 0 1")
+    position = Position("2q5/8/5k2/2R5/8/8/8/2K5 w - - 0 1")
     Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
+    # position.show_board()
+    position.show_moves()
+    # for figure in position._white_figures:
+    #     print(figure.possible_moves)
     end_time = time.time()
     print(end_time - start_time)

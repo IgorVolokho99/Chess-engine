@@ -58,8 +58,8 @@ class TestPosition:
         "fen, expected_coord, comment",
         [
             ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", None, "Test_1"),
-            ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq e3 0 1", Coord(4, 5), "Test_2"),
-            ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq b5 0 1", Coord(1, 3), "Test_3"),
+            ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq e3 0 1", Coord(5, 4), "Test_2"),
+            ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq b5 0 1", Coord(3, 1), "Test_3"),
         ]
     )
     def test_el_passant_cell(self, fen: str, expected_coord: Coord, comment: str) -> None:
@@ -93,8 +93,8 @@ class TestPosition:
     @pytest.mark.parametrize(
         "fen, expected_white_coord, expected_black_coord, comment",
         [
-            ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Coord(4, 7), Coord(4, 0), "Test_1"),
-            ("8/8/4k3/8/8/2K5/8/8 w - - 0 1", Coord(2, 5), Coord(4, 2), "Test_1"),
+            ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Coord(7, 4), Coord(0, 4), "Test_1"),
+            ("8/8/4k3/8/8/2K5/8/8 w - - 0 1", Coord(5, 2), Coord(2, 4), "Test_1"),
         ]
     )
     def test_coordinates_of_kings(self, fen: str, expected_white_coord: Coord, expected_black_coord: Coord,
