@@ -126,7 +126,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Cd2G8OGbGhBgNAt-MOJm-1" value="Class4" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="520" y="460" width="230" height="180" as="geometry" />
+          <mxGeometry x="450" y="540" width="230" height="180" as="geometry" />
         </mxCell>
         <mxCell id="Cd2G8OGbGhBgNAt-MOJm-2" value="FenState" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" parent="Cd2G8OGbGhBgNAt-MOJm-1" vertex="1">
           <mxGeometry y="29" width="230" height="25" as="geometry" />
@@ -134,11 +134,11 @@
         <mxCell id="Cd2G8OGbGhBgNAt-MOJm-3" value="active_сolor: Color;&lt;div&gt;white_long_castling: bool;&lt;/div&gt;&lt;div&gt;while_short_castling: bool;&lt;br&gt;&lt;div&gt;black_long_castling: bool;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;black_short_castling: bool;&lt;/div&gt;&lt;div&gt;en_passant_target: Coord;&lt;/div&gt;&lt;div&gt;moves_without_pawn: int;&lt;/div&gt;&lt;div&gt;move_clock: int;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" parent="Cd2G8OGbGhBgNAt-MOJm-1" vertex="1">
           <mxGeometry y="54" width="230" height="126" as="geometry" />
         </mxCell>
-        <mxCell id="Cd2G8OGbGhBgNAt-MOJm-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.016;entryY=0.487;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=diamond;startFill=0;" parent="1" edge="1">
+        <mxCell id="Cd2G8OGbGhBgNAt-MOJm-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.004;entryY=0.365;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=diamond;startFill=0;" parent="1" edge="1" target="Cd2G8OGbGhBgNAt-MOJm-3">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="415" y="141" />
-              <mxPoint x="415" y="556" />
+              <mxPoint x="415" y="640" />
             </Array>
             <mxPoint x="310" y="141" as="sourcePoint" />
             <mxPoint x="523.6800000000001" y="556.3620000000001" as="targetPoint" />
@@ -168,8 +168,8 @@
         <mxCell id="aTVTpkIVy11kyu5PnUZx-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.497;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=diamond;startFill=0;" parent="1" source="aTVTpkIVy11kyu5PnUZx-1" target="nS-aU2-Fu20UbDGTOqFU-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="aTVTpkIVy11kyu5PnUZx-9" value="&lt;span style=&quot;text-align: left;&quot;&gt;Function&lt;/span&gt;&lt;div style=&quot;text-align: left;&quot;&gt;check_to_king(board, coord_of_king);&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
-          <mxGeometry x="1030" y="600" width="200" height="90" as="geometry" />
+        <mxCell id="aTVTpkIVy11kyu5PnUZx-9" value="&lt;span style=&quot;text-align: left;&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;Function&lt;/font&gt;&lt;/span&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;check_to_king(board, coord_of_king);&lt;/font&gt;&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
+          <mxGeometry x="550" y="420" width="220" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

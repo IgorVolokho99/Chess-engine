@@ -28,6 +28,21 @@ class Figure:
         self.coord = coord
         self.possible_moves = None
 
+    def generate_move(self, board: list[list], coord_of_king: Coord) -> None:
+        match self.type_of_figure:
+            case FigureType.rook:
+                pass
+            case FigureType.bishop:
+                pass
+            case FigureType.queen:
+                pass
+            case FigureType.knight:
+                pass
+            case FigureType.pawn:
+                pass
+            case FigureType.king:
+                pass
+
     @staticmethod
     def check_to_king(board: list[list], coord_of_king: Coord, color: Color) -> bool:
         if color == Color.white:
