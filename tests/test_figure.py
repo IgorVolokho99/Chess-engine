@@ -117,7 +117,6 @@ class TestFigure:
         pos = Position(fen)
         assert not Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
 
-
     # KNIGHT
     @pytest.mark.parametrize(
         "fen, comment",
@@ -166,7 +165,6 @@ class TestFigure:
         pos = Position(fen)
         assert not Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
 
-
     # QUEEN
     @pytest.mark.parametrize(
         "fen, comment",
@@ -179,7 +177,6 @@ class TestFigure:
         pos = Position(fen)
         assert Figure.check_to_king(pos._board, pos._coord_of_white_king, Color.white)
 
-
     @pytest.mark.parametrize(
         "fen, comment",
         [
@@ -189,7 +186,6 @@ class TestFigure:
     def test_check_to_white_king_queen_with_check(self, fen: str, comment: str) -> None:
         pos = Position(fen)
         assert not Figure.check_to_king(pos._board, pos._coord_of_white_king, Color.white)
-
 
     @pytest.mark.parametrize(
         "fen, comment",
@@ -201,7 +197,6 @@ class TestFigure:
         pos = Position(fen)
         assert Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
 
-
     @pytest.mark.parametrize(
         "fen, comment",
         [
@@ -211,7 +206,6 @@ class TestFigure:
     def test_check_to_black_king_queen_with_check(self, fen: str, comment: str) -> None:
         pos = Position(fen)
         assert not Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
-
 
     @pytest.mark.parametrize(
         "fen, comment",
@@ -224,7 +218,6 @@ class TestFigure:
         pos = Position(fen)
         assert not Figure.check_to_king(pos._board, pos._coord_of_white_king, Color.white)
 
-
     @pytest.mark.parametrize(
         "fen, comment",
         [
@@ -233,5 +226,45 @@ class TestFigure:
         ]
     )
     def test_check_to_black_king_pawn_with_check(self, fen: str, comment: str) -> None:
+        pos = Position(fen)
+        assert not Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
+
+    @pytest.mark.parametrize(
+        "fen, comment",
+        [
+            ("8/8/8/3k4/2K5/8/8/8 w - - 0 1", "Test_1"),
+        ]
+    )
+    def test_check_to_white_king_king_with_check(self, fen: str, comment: str) -> None:
+        pos = Position(fen)
+        assert Figure.check_to_king(pos._board, pos._coord_of_white_king, Color.white)
+
+    @pytest.mark.parametrize(
+        "fen, comment",
+        [
+            ("8/8/8/3k4/8/8/2K5/8 w - - 0 1", "Test_1"),
+        ]
+    )
+    def test_check_to_white_king_king_without_check(self, fen: str, comment: str) -> None:
+        pos = Position(fen)
+        assert not Figure.check_to_king(pos._board, pos._coord_of_white_king, Color.white)
+
+    @pytest.mark.parametrize(
+        "fen, comment",
+        [
+            ("8/8/8/3k4/2K5/8/8/8 w - - 0 1", "Test_1"),
+        ]
+    )
+    def test_check_to_black_king_king_with_check(self, fen: str, comment: str) -> None:
+        pos = Position(fen)
+        assert Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
+
+    @pytest.mark.parametrize(
+        "fen, comment",
+        [
+            ("8/8/8/3k4/8/8/2K5/8 w - - 0 1", "Test_1"),
+        ]
+    )
+    def test_check_to_black_king_king_without_check(self, fen: str, comment: str) -> None:
         pos = Position(fen)
         assert not Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)

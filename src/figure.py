@@ -50,6 +50,7 @@ class Figure:
         else:
             my_case = False
 
+        # ROOK
         for changed_y in range(coord_of_king.y + 1, 8):
             cell = board[changed_y][coord_of_king.x]
             if cell != '-':
@@ -90,6 +91,7 @@ class Figure:
                         return True
                     break
 
+        # BISHOP
         start_y = coord_of_king.y + 1
         start_x = coord_of_king.x + 1
         while start_y < 8 and start_x < 8:
@@ -146,7 +148,7 @@ class Figure:
             start_y -= 1
             start_x -= 1
 
-        # Knight Part
+        # KNIGHT Part
         knight_y, knight_x = coord_of_king.y + 2, coord_of_king.x + 1
         if knight_y < 8 and knight_x < 8:
             cell = board[knight_y][knight_x]
@@ -195,7 +197,7 @@ class Figure:
             if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'N':
                 return True
 
-        # Pawn part
+        # PAWN part
         if my_case:
             pawn_y = coord_of_king.y - 1
             pawn_x = coord_of_king.x - 1
@@ -215,6 +217,55 @@ class Figure:
             pawn_x = coord_of_king.x + 1
             if pawn_y < 8 and pawn_x <= 8 and board[pawn_y][pawn_x].isupper() != my_case and \
                     board[pawn_y][pawn_x].isupper() == 'P':
+                return True
+
+        # KING PART
+        king_y, king_x = coord_of_king.y + 1, coord_of_king.x + 1
+        if king_y < 8 and king_x < 8:
+            cell = board[king_y][king_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
+                return True
+
+        king_y, king_x = coord_of_king.y + 1, coord_of_king.x + 1
+        if king_y < 8 and king_x < 8:
+            cell = board[king_y][king_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
+                return True
+
+        king_y, king_x = coord_of_king.y + 1, coord_of_king.x - 1
+        if king_y < 8 and king_x >= 0:
+            cell = board[king_y][king_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
+                return True
+
+        king_y, king_x = coord_of_king.y - 1, coord_of_king.x + 1
+        if king_y >= 0 and king_x < 8:
+            cell = board[king_y][king_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
+                return True
+
+        king_y, king_x = coord_of_king.y - 1, coord_of_king.x - 1
+        if king_y >= 0 and king_x >= 0:
+            cell = board[king_y][king_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
+                return True
+
+        king_y, king_x = coord_of_king.y + 1, coord_of_king.x - 1
+        if king_y < 8 and king_x >= 0:
+            cell = board[king_y][king_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
+                return True
+
+        king_y, king_x = coord_of_king.y - 1, coord_of_king.x + 1
+        if king_y >= 0 and king_x < 8:
+            cell = board[king_y][king_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
+                return True
+
+        king_y, king_x = coord_of_king.y - 1, coord_of_king.x - 1
+        if king_y >= 0 and king_x >= 0:
+            cell = board[king_y][king_x]
+            if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
                 return True
 
         return False
