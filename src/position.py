@@ -1,6 +1,6 @@
 """Модуль, который содержит реализацию шахматной позиции."""
 from src.coord import Coord
-from src.enums import Color
+from src.enums import Color, FigureType
 from src.fen_state import FenState
 from src.figure import Figure
 
@@ -105,7 +105,11 @@ if __name__ == "__main__":
     import time
 
     start_time = time.time()
-    position = Position("2q5/8/5k2/2R5/8/8/8/2K5 w - - 0 1")
+    # position = Position("2q5/8/5k2/2R5/8/8/8/2K5 w - - 0 1") # Rook
+    # position = Position("3k4/8/7q/8/5B2/8/7K/8 w - - 0 1")  # Bishop
+    # position = Position("3k4/8/8/8/5Q2/8/7K/8 w - - 0 1")  # Queen
+    # position = Position("3k4/8/8/4q3/5N2/8/7K/8 w - - 0 1")  # Knight
+    position = Position("rnbqkbnr/pppppppp/1R6/7R/P2PP2P/2P5/1P3PP1/RNBQKBNR w KQkq - 0 1")  # Knight
     Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
     # position.show_board()
     position.show_moves()
