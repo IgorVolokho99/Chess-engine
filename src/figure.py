@@ -568,7 +568,48 @@ class Figure:
                         board[knight_y][knight_x] = cell
 
             case FigureType.pawn:
-                pass
+                if self.color is Color.white:
+                    # left up
+                    move_y, move_x = self.coord.y - 1, self.coord.x - 1
+                    if 0 <= move_y <= 8 and 0 <= move_x < 8:
+                        cell = board[move_y][move_x]
+                        if cell.isupper() != self.char.isupper() and cell != '-':
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(Coord(move_y, move_x))
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
+                    # right up
+                    move_y, move_x = self.coord.y - 1, self.coord.x + 1
+                    if 0 <= move_y <= 8 and 0 <= move_x < 8:
+                        cell = board[move_y][move_x]
+                        if cell.isupper() != self.char.isupper() and cell != '-':
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(Coord(move_y, move_x))
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
+                    move_y, move_x = self.coord.y - 1, self.coord.x
+                    if 0 <= move_y <= 8 and 0 <= move_x < 8:
+                        cell = board[move_y][move_x]
+                        if cell == '-':
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(Coord(move_y, move_x))
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
+                            if self.coord.y == 7:
+                                move_y, move_x = self.coord.y - 2, self.coord.x
+                                if cell == '-':
+                                    board[self.coord.y][self.coord.x] = '-'
+                                    board[move_y][move_x] = self.char
+                                    if not self.check_to_king(board, coord_of_king, self.color):
+                                        self.possible_moves.append(Coord(move_y, move_x))
+                                    board[self.coord.y][self.coord.x] = self.char
+                                    board[move_y][move_x] = cell
             case FigureType.king:
                 # KING PART
                 king_y, king_x = self.coord.y + 1, self.coord.x + 1

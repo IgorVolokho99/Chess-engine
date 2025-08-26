@@ -1,6 +1,6 @@
 """Модуль, который содержит необходимые перечисления для игры."""
 
-from enum import Enum, StrEnum
+from enum import Enum
 
 
 class Color(Enum):

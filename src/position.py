@@ -109,10 +109,11 @@ if __name__ == "__main__":
     # position = Position("3k4/8/7q/8/5B2/8/7K/8 w - - 0 1")  # Bishop
     # position = Position("3k4/8/8/8/5Q2/8/7K/8 w - - 0 1")  # Queen
     # position = Position("3k4/8/8/4q3/5N2/8/7K/8 w - - 0 1")  # Knight
-    position = Position("rnbqkbnr/pppppppp/1R6/7R/P2PP2P/2P5/1P3PP1/RNBQKBNR w KQkq - 0 1")  # Knight
-    Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
-    # position.show_board()
-    position.show_moves()
+    for i in range(1000):
+        position = Position("rnbqkbnr/1p1p1ppp/2p1p3/p3Q2R/1P1P4/r7/P1P1PPPP/RNBQKBNR w KQkq - 0 1")  # Knight
+        Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
+        # position.show_board()
+        # position.show_moves()
     # for figure in position._white_figures:
     #     print(figure.possible_moves)
     end_time = time.time()
