@@ -1,6 +1,6 @@
 """Модуль, который содержит реализацию фигуры со всем её содержимым."""
 
-from src.coord import Coord
+from src.coord import Coord, CoordWithTransform
 from src.enums import FigureType, Color
 
 from_char_to_figure = {
@@ -577,7 +577,13 @@ class Figure:
                             board[self.coord.y][self.coord.x] = '-'
                             board[move_y][move_x] = self.char
                             if not self.check_to_king(board, coord_of_king, self.color):
-                                self.possible_moves.append(Coord(move_y, move_x))
+                                if move_y == 0:
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "Q"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "R"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "B"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
+                                else:
+                                    self.possible_moves.append(Coord(move_y, move_x))
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
                     # right up
@@ -588,7 +594,13 @@ class Figure:
                             board[self.coord.y][self.coord.x] = '-'
                             board[move_y][move_x] = self.char
                             if not self.check_to_king(board, coord_of_king, self.color):
-                                self.possible_moves.append(Coord(move_y, move_x))
+                                if move_y == 0:
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "Q"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "R"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "B"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
+                                else:
+                                    self.possible_moves.append(Coord(move_y, move_x))
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
                     move_y, move_x = self.coord.y - 1, self.coord.x
@@ -598,16 +610,88 @@ class Figure:
                             board[self.coord.y][self.coord.x] = '-'
                             board[move_y][move_x] = self.char
                             if not self.check_to_king(board, coord_of_king, self.color):
-                                self.possible_moves.append(Coord(move_y, move_x))
+                                if move_y == 0:
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "Q"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "R"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "B"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
+                                else:
+                                    self.possible_moves.append(Coord(move_y, move_x))
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
-                            if self.coord.y == 7:
+                            if self.coord.y == 6:
                                 move_y, move_x = self.coord.y - 2, self.coord.x
                                 if cell == '-':
                                     board[self.coord.y][self.coord.x] = '-'
                                     board[move_y][move_x] = self.char
                                     if not self.check_to_king(board, coord_of_king, self.color):
                                         self.possible_moves.append(Coord(move_y, move_x))
+                                    board[self.coord.y][self.coord.x] = self.char
+                                    board[move_y][move_x] = cell
+                else:
+                    # left down
+                    move_y, move_x = self.coord.y + 1, self.coord.x - 1
+                    if 0 <= move_y <= 8 and 0 <= move_x < 8:
+                        cell = board[move_y][move_x]
+                        if cell.isupper() != self.char.isupper() and cell != '-':
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                if move_y == 7:
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "Q"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "R"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "B"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
+                                else:
+                                    self.possible_moves.append(Coord(move_y, move_x))
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
+                    # right down
+                    move_y, move_x = self.coord.y + 1, self.coord.x + 1
+                    if 0 <= move_y <= 8 and 0 <= move_x < 8:
+                        cell = board[move_y][move_x]
+                        if cell.isupper() != self.char.isupper() and cell != '-':
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                if move_y == 7:
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "Q"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "R"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "B"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
+                                else:
+                                    self.possible_moves.append(Coord(move_y, move_x))
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
+                    move_y, move_x = self.coord.y + 1, self.coord.x
+                    if 0 <= move_y <= 8 and 0 <= move_x < 8:
+                        cell = board[move_y][move_x]
+                        if cell == '-':
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                if move_y == 7:
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "Q"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "R"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "B"))
+                                    self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
+                                else:
+                                    self.possible_moves.append(Coord(move_y, move_x))
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
+                            if self.coord.y == 1:
+                                move_y, move_x = self.coord.y - 2, self.coord.x
+                                if cell == '-':
+                                    board[self.coord.y][self.coord.x] = '-'
+                                    board[move_y][move_x] = self.char
+                                    if not self.check_to_king(board, coord_of_king, self.color):
+                                        if move_y == 7:
+                                            self.possible_moves.append(CoordWithTransform(move_y, move_x, "Q"))
+                                            self.possible_moves.append(CoordWithTransform(move_y, move_x, "R"))
+                                            self.possible_moves.append(CoordWithTransform(move_y, move_x, "B"))
+                                            self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
+                                        else:
+                                            self.possible_moves.append(Coord(move_y, move_x))
                                     board[self.coord.y][self.coord.x] = self.char
                                     board[move_y][move_x] = cell
             case FigureType.king:
@@ -715,7 +799,6 @@ class Figure:
 
                         board[self.coord.y][self.coord.x] = self.char
                         board[king_y][king_x] = cell
-
 
     @staticmethod
     def check_to_king(board: list[list], coord_of_king: Coord, color: Color) -> bool:
@@ -943,3 +1026,6 @@ class Figure:
                 return True
 
         return False
+
+    def __repr__(self) -> str:
+        return str(self.type_of_figure.value)

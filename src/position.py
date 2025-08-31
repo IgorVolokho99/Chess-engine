@@ -80,19 +80,46 @@ class Position:
             print()
 
     def show_moves(self) -> None:
+        # figures = self._white_figures if self._fen_state.active_color == 'w' else self._black_figures
+        # opposite_figures = self._white_figures if self._fen_state.active_color == 'b' else self._black_figures
+        #
+        # for y, line in enumerate(self._board):
+        #     for x, cell in enumerate(line):
+        #         if cell == '-':
+        #             maybe_attack = Coord(y, x)
+        #             for figure in figures:
+        #                 if maybe_attack in figure.possible_moves:
+        #                     print('*', end=' ')
+        #                     break
+        #             else:
+        #                 print(cell, end=' ')
+        #         else:
+        #             maybe_attack = Coord(y, x)
+        #             for figure in figures:
+        #                 if maybe_attack in figure.possible_moves:
+        #                     print('!', end=' ')
+        #                     break
+        #             else:
+        #                 print(cell, end=' ')
+        #     print()
+        figures = self._white_figures if self._fen_state.active_color is Color.white else self._black_figures
+
         for y, line in enumerate(self._board):
             for x, cell in enumerate(line):
                 if cell == '-':
                     maybe_attack = Coord(y, x)
-                    for figure in self._white_figures:
+                    counter = 0
+                    for figure in figures:
                         if maybe_attack in figure.possible_moves:
-                            print('*', end=' ')
+                            counter += 1
+                        if counter != 0:
+                            print(counter, end=' ')
                             break
                     else:
                         print(cell, end=' ')
                 else:
                     maybe_attack = Coord(y, x)
-                    for figure in self._white_figures:
+                    for figure in figures:
                         if maybe_attack in figure.possible_moves:
                             print('!', end=' ')
                             break
