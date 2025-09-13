@@ -40,3 +40,19 @@ class CoordWithTransform(Coord):
 
     def __repr__(self) -> str:
         return f"Coord({self.y}, {self.x}, {self.figure})"
+
+
+class CoordEnPassant(Coord):
+    """Реализация шахматных координат для взятия на проходе."""
+    def __init__(self, y: int = None, x: int = None) -> None:
+        """Вызывает родительский конструктор и инициализирует атрибут figure.
+
+        Args:
+            y(int) : Координата по вертикали;
+            x(int) : Координата по горизонтали;
+
+        """
+        super().__init__(y, x)
+
+    def __repr__(self) -> str:
+        return f"Coord({self.y}, {self.x}, EnPassant)"

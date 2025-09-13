@@ -1,6 +1,6 @@
 """Модуль, который содержит реализацию фигуры со всем её содержимым."""
 
-from src.coord import Coord, CoordWithTransform
+from src.coord import Coord, CoordWithTransform, CoordEnPassant
 from src.enums import FigureType, Color
 
 from_char_to_figure = {
@@ -29,7 +29,7 @@ class Figure:
         self.coord = coord
         self.possible_moves = []
 
-    def generate_move(self, board: list[list], coord_of_king: Coord) -> None:
+    def generate_move(self, board: list[list], coord_of_king: Coord, en_passant_cell: CoordEnPassant) -> None:
         if self.color == Color.white:
             my_case = True
         else:
@@ -586,6 +586,13 @@ class Figure:
                                     self.possible_moves.append(Coord(move_y, move_x))
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
+                        elif en_passant_cell and Coord(move_y, move_x) == en_passant_cell:
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(en_passant_cell)
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
                     # right up
                     move_y, move_x = self.coord.y - 1, self.coord.x + 1
                     if 0 <= move_y <= 8 and 0 <= move_x < 8:
@@ -601,6 +608,13 @@ class Figure:
                                     self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
                                 else:
                                     self.possible_moves.append(Coord(move_y, move_x))
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
+                        elif en_passant_cell and Coord(move_y, move_x) == en_passant_cell:
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(en_passant_cell)
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
                     move_y, move_x = self.coord.y - 1, self.coord.x
@@ -644,6 +658,13 @@ class Figure:
                                     self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
                                 else:
                                     self.possible_moves.append(Coord(move_y, move_x))
+                            elif en_passant_cell and Coord(move_y, move_x) == en_passant_cell:
+                                board[self.coord.y][self.coord.x] = '-'
+                                board[move_y][move_x] = self.char
+                                if not self.check_to_king(board, coord_of_king, self.color):
+                                    self.possible_moves.append(en_passant_cell)
+                                board[self.coord.y][self.coord.x] = self.char
+                                board[move_y][move_x] = cell
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
                     # right down
@@ -661,6 +682,13 @@ class Figure:
                                     self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
                                 else:
                                     self.possible_moves.append(Coord(move_y, move_x))
+                            board[self.coord.y][self.coord.x] = self.char
+                            board[move_y][move_x] = cell
+                        elif en_passant_cell and Coord(move_y, move_x) == en_passant_cell:
+                            board[self.coord.y][self.coord.x] = '-'
+                            board[move_y][move_x] = self.char
+                            if not self.check_to_king(board, coord_of_king, self.color):
+                                self.possible_moves.append(en_passant_cell)
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
                     move_y, move_x = self.coord.y + 1, self.coord.x

@@ -71,7 +71,7 @@ class Position:
         active_figures = self._white_figures if self._fen_state.active_color == Color.white else self._black_figures
         coord_of_king = self._coord_of_white_king if self._fen_state.active_color == Color.white else self._coord_of_black_king
         for figure in active_figures:
-            figure.generate_move(self._board, coord_of_king)
+            figure.generate_move(self._board, coord_of_king, self._fen_state.en_passant_cell)
 
     def show_board(self) -> None:
         for line in self._board:
@@ -129,19 +129,23 @@ class Position:
 
 
 if __name__ == "__main__":
-    import time
-
-    start_time = time.time()
-    # position = Position("2q5/8/5k2/2R5/8/8/8/2K5 w - - 0 1") # Rook
-    # position = Position("3k4/8/7q/8/5B2/8/7K/8 w - - 0 1")  # Bishop
-    # position = Position("3k4/8/8/8/5Q2/8/7K/8 w - - 0 1")  # Queen
-    # position = Position("3k4/8/8/4q3/5N2/8/7K/8 w - - 0 1")  # Knight
-    for i in range(1000):
-        position = Position("rnbqkbnr/1p1p1ppp/2p1p3/p3Q2R/1P1P4/r7/P1P1PPPP/RNBQKBNR w KQkq - 0 1")  # Knight
-        Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
-        # position.show_board()
-        # position.show_moves()
-    # for figure in position._white_figures:
-    #     print(figure.possible_moves)
-    end_time = time.time()
-    print(end_time - start_time)
+    # import time
+    #
+    # start_time = time.time()
+    # # position = Position("2q5/8/5k2/2R5/8/8/8/2K5 w - - 0 1") # Rook
+    # # position = Position("3k4/8/7q/8/5B2/8/7K/8 w - - 0 1")  # Bishop
+    # # position = Position("3k4/8/8/8/5Q2/8/7K/8 w - - 0 1")  # Queen
+    # # position = Position("3k4/8/8/4q3/5N2/8/7K/8 w - - 0 1")  # Knight
+    # for i in range(1000):
+    #     position = Position("rnbqkbnr/1p1p1ppp/2p1p3/p3Q2R/1P1P4/r7/P1P1PPPP/RNBQKBNR w KQkq - 0 1")  # Knight
+    #     Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
+    #     # position.show_board()
+    #     # position.show_moves()
+    # # for figure in position._white_figures:
+    # #     print(figure.possible_moves)
+    # end_time = time.time()
+    # print(end_time - start_time)
+    position = Position("1k6/8/8/3pP3/8/8/8/1K6 w - d6 0 1")
+    # Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
+    # print(position._fen_state.en_passant_cell)
+    position.show_moves()

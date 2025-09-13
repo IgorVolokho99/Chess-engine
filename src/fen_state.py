@@ -1,5 +1,5 @@
 """Модуль, который содержит реализацию и хранения параметров fen-нотации."""
-from src.coord import Coord
+from src.coord import Coord, CoordEnPassant
 from src.enums import Color
 
 from_letter_to_digit = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
@@ -46,7 +46,7 @@ class FenState:
             digit = fen_parts[3][1]
             coord_x = from_letter_to_digit[letter]
             coord_y = 8 - int(digit)
-            self.en_passant_cell = Coord(coord_y, coord_x)
+            self.en_passant_cell = CoordEnPassant(coord_y, coord_x)
 
         if fen_parts[4] == '-':
             self.moves_without_pawn = 0
