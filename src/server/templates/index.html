@@ -13,27 +13,42 @@
 
 <button onclick="sendLogin()">Войти</button>
 
+
+<p id="message" style="color: red;"></p>
+
 <script>
     function sendLogin() {
         const login = document.getElementById("login").value;
         const password = document.getElementById("password").value;
+        const message = document.getElementById("message");
+
+        message.textContent = "";
 
         fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                login: login,
-                password: password
-            })
+            body: JSON.stringify({login, password})
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Отвер сервера:", data);
-                alert("Запрос отправлен, смотри консоль Flask");
+            .then(async response => {
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error);
+                }
+
+                return data;
+            })
+            .then(() => {
+                window.location.href = "/game";
+            })
+            .catch(err => {
+                message.style.color = "red";
+                message.textContent = err.message;
             });
     }
 </script>
+
 </body>
 </html>
