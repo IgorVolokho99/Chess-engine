@@ -1,6 +1,6 @@
 """Модуль, который содержит реализацию и хранения параметров fen-нотации."""
-from src.coord import Coord, CoordEnPassant
-from src.enums import Color
+from src.engine.coord import CoordEnPassant
+from src.engine.enums import Color
 
 from_letter_to_digit = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
 

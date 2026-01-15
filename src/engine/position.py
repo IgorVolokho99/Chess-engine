@@ -1,8 +1,8 @@
 """Модуль, который содержит реализацию шахматной позиции."""
-from src.coord import Coord
-from src.enums import Color, FigureType
-from src.fen_state import FenState
-from src.figure import Figure
+from src.engine.coord import Coord
+from src.engine.enums import Color
+from src.engine.fen_state import FenState
+from src.engine.figure import Figure
 
 
 class Position:
@@ -22,12 +22,16 @@ class Position:
         self._black_coords = []
         self._coord_of_white_king = None
         self._coord_of_black_king = None
-        self._fen_state = FenState(fen)
-        self.generate_board_from_fen()
+        self._fen_state = None
+        self._initialize()
+
+    def _initialize(self) -> None:
+        self.fill_board()
         self.fill_figures_and_coords()
+        self._fen_state = FenState(self._fen)
         self.generate_moves()
 
-    def generate_board_from_fen(self) -> None:
+    def fill_board(self) -> None:
         board_parts = self._fen_state.board_part.split('/')
         for i, part in enumerate(board_parts):
             j = 0
@@ -80,28 +84,6 @@ class Position:
             print()
 
     def show_moves(self) -> None:
-        # figures = self._white_figures if self._fen_state.active_color == 'w' else self._black_figures
-        # opposite_figures = self._white_figures if self._fen_state.active_color == 'b' else self._black_figures
-        #
-        # for y, line in enumerate(self._board):
-        #     for x, cell in enumerate(line):
-        #         if cell == '-':
-        #             maybe_attack = Coord(y, x)
-        #             for figure in figures:
-        #                 if maybe_attack in figure.possible_moves:
-        #                     print('*', end=' ')
-        #                     break
-        #             else:
-        #                 print(cell, end=' ')
-        #         else:
-        #             maybe_attack = Coord(y, x)
-        #             for figure in figures:
-        #                 if maybe_attack in figure.possible_moves:
-        #                     print('!', end=' ')
-        #                     break
-        #             else:
-        #                 print(cell, end=' ')
-        #     print()
         figures = self._white_figures if self._fen_state.active_color is Color.white else self._black_figures
 
         for y, line in enumerate(self._board):
@@ -129,23 +111,5 @@ class Position:
 
 
 if __name__ == "__main__":
-    # import time
-    #
-    # start_time = time.time()
-    # # position = Position("2q5/8/5k2/2R5/8/8/8/2K5 w - - 0 1") # Rook
-    # # position = Position("3k4/8/7q/8/5B2/8/7K/8 w - - 0 1")  # Bishop
-    # # position = Position("3k4/8/8/8/5Q2/8/7K/8 w - - 0 1")  # Queen
-    # # position = Position("3k4/8/8/4q3/5N2/8/7K/8 w - - 0 1")  # Knight
-    # for i in range(1000):
-    #     position = Position("rnbqkbnr/1p1p1ppp/2p1p3/p3Q2R/1P1P4/r7/P1P1PPPP/RNBQKBNR w KQkq - 0 1")  # Knight
-    #     Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
-    #     # position.show_board()
-    #     # position.show_moves()
-    # # for figure in position._white_figures:
-    # #     print(figure.possible_moves)
-    # end_time = time.time()
-    # print(end_time - start_time)
     position = Position("1k6/8/8/3pP3/8/8/8/1K6 w - d6 0 1")
-    # Figure.check_to_king(position._board, position._coord_of_white_king, Color.white)
-    # print(position._fen_state.en_passant_cell)
     position.show_moves()

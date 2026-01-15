@@ -1,7 +1,7 @@
 """Модуль, который содержит реализацию фигуры со всем её содержимым."""
 
-from src.coord import Coord, CoordWithTransform, CoordEnPassant
-from src.enums import FigureType, Color
+from src.engine.coord import Coord, CoordWithTransform, CoordEnPassant
+from src.engine.enums import FigureType, Color
 
 from_char_to_figure = {
     'K': FigureType.king,
