@@ -26,6 +26,7 @@ class Coord:
 
 class CoordWithTransform(Coord):
     """Реализация шахматных координат с превращением для пешек."""
+
     def __init__(self, y: int = None, x: int = None, figure: str = None) -> None:
         """Вызывает родительский конструктор и инициализирует атрибут figure.
 
@@ -44,6 +45,7 @@ class CoordWithTransform(Coord):
 
 class CoordEnPassant(Coord):
     """Реализация шахматных координат для взятия на проходе."""
+
     def __init__(self, y: int = None, x: int = None) -> None:
         """Вызывает родительский конструктор и инициализирует атрибут figure.
 
@@ -56,3 +58,22 @@ class CoordEnPassant(Coord):
 
     def __repr__(self) -> str:
         return f"Coord({self.y}, {self.x}, EnPassant)"
+
+
+class CoordCastling(Coord):
+    """Реализация шахматных координат для рокировок."""
+    def __init__(self, y: int = None, x: int = None, type_of_castling: str = None) -> None:
+        """Вызывает родительский конструктор и инициализирует атрибут figure.
+
+        Args:
+            y(int) : Координата по вертикали;
+            x(int) : Координата по горизонтали;
+            type_of_castling(str) : Обозначения вида рокировки.
+
+        """
+        super().__init__(y, x)
+        self.type_of_castling = type_of_castling
+
+
+    def __repr__(self) -> str:
+        return f"Coord({self.y}, {self.x}, Castling)"

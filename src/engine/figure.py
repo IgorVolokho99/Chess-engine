@@ -1,7 +1,8 @@
 """Модуль, который содержит реализацию фигуры со всем её содержимым."""
 
-from src.engine.coord import Coord, CoordWithTransform, CoordEnPassant
+from src.engine.coord import Coord, CoordWithTransform, CoordEnPassant, CoordCastling
 from src.engine.enums import FigureType, Color
+from src.engine.fen_state import FenState
 
 from_char_to_figure = {
     'K': FigureType.king,
@@ -29,7 +30,7 @@ class Figure:
         self.coord = coord
         self.possible_moves = []
 
-    def generate_move(self, board: list[list], coord_of_king: Coord, en_passant_cell: CoordEnPassant) -> None:
+    def generate_move(self, board: list[list], coord_of_king: Coord, fen_state: FenState) -> None:
         if self.color == Color.white:
             my_case = True
         else:
@@ -586,11 +587,11 @@ class Figure:
                                     self.possible_moves.append(Coord(move_y, move_x))
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
-                        elif en_passant_cell and Coord(move_y, move_x) == en_passant_cell:
+                        elif fen_state.en_passant_cell and Coord(move_y, move_x) == fen_state.en_passant_cell:
                             board[self.coord.y][self.coord.x] = '-'
                             board[move_y][move_x] = self.char
                             if not self.check_to_king(board, coord_of_king, self.color):
-                                self.possible_moves.append(en_passant_cell)
+                                self.possible_moves.append(fen_state.en_passant_cell)
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
                     # right up
@@ -610,11 +611,11 @@ class Figure:
                                     self.possible_moves.append(Coord(move_y, move_x))
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
-                        elif en_passant_cell and Coord(move_y, move_x) == en_passant_cell:
+                        elif fen_state.en_passant_cell and Coord(move_y, move_x) == fen_state.en_passant_cell:
                             board[self.coord.y][self.coord.x] = '-'
                             board[move_y][move_x] = self.char
                             if not self.check_to_king(board, coord_of_king, self.color):
-                                self.possible_moves.append(en_passant_cell)
+                                self.possible_moves.append(fen_state.en_passant_cell)
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
                     move_y, move_x = self.coord.y - 1, self.coord.x
@@ -658,11 +659,11 @@ class Figure:
                                     self.possible_moves.append(CoordWithTransform(move_y, move_x, "N"))
                                 else:
                                     self.possible_moves.append(Coord(move_y, move_x))
-                            elif en_passant_cell and Coord(move_y, move_x) == en_passant_cell:
+                            elif fen_state.en_passant_cell and Coord(move_y, move_x) == fen_state.en_passant_cell:
                                 board[self.coord.y][self.coord.x] = '-'
                                 board[move_y][move_x] = self.char
                                 if not self.check_to_king(board, coord_of_king, self.color):
-                                    self.possible_moves.append(en_passant_cell)
+                                    self.possible_moves.append(fen_state.en_passant_cell)
                                 board[self.coord.y][self.coord.x] = self.char
                                 board[move_y][move_x] = cell
                             board[self.coord.y][self.coord.x] = self.char
@@ -684,11 +685,11 @@ class Figure:
                                     self.possible_moves.append(Coord(move_y, move_x))
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
-                        elif en_passant_cell and Coord(move_y, move_x) == en_passant_cell:
+                        elif fen_state.en_passant_cell and Coord(move_y, move_x) == fen_state.en_passant_cell:
                             board[self.coord.y][self.coord.x] = '-'
                             board[move_y][move_x] = self.char
                             if not self.check_to_king(board, coord_of_king, self.color):
-                                self.possible_moves.append(en_passant_cell)
+                                self.possible_moves.append(fen_state.en_passant_cell)
                             board[self.coord.y][self.coord.x] = self.char
                             board[move_y][move_x] = cell
                     move_y, move_x = self.coord.y + 1, self.coord.x
@@ -827,6 +828,87 @@ class Figure:
 
                         board[self.coord.y][self.coord.x] = self.char
                         board[king_y][king_x] = cell
+
+                if self.char.isupper():
+                    if fen_state.white_long_castling:
+                        if not self.check_to_king(board, coord_of_king, self.color):
+                            left_1 = board[7][3]
+                            left_2 = board[7][2]
+                            left_3 = board[7][1]
+                            if left_1 == '-' and left_2 == '-' and left_3 == '-':
+                                king_y, king_x = 8, 3
+                                board[self.coord.y][self.coord.x] = '-'
+                                board[king_y][king_x] = self.char
+                                if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                    board[self.coord.y][self.coord.x] = self.char
+                                    board[king_y][king_x] = '-'
+                                    king_y, king_x = 8, 2
+                                    board[self.coord.y][self.coord.x] = '-'
+                                    board[king_y][king_x] = self.char
+                                    if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                        board[self.coord.y][self.coord.x] = self.char
+                                        board[king_y][king_x] = '-'
+                                        king_y, king_x = 8, 1
+                                        board[self.coord.y][self.coord.x] = '-'
+                                        board[king_y][king_x] = self.char
+                                        if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                            self.possible_moves.append(CoordCastling(king_y, king_x, 'Q'))
+                    if fen_state.white_short_castling:
+                        if not self.check_to_king(board, coord_of_king, self.color):
+                            right_1 = board[7][5]
+                            right_2 = board[7][6]
+                            if right_1 == '-' and right_2 == '-':
+                                king_y, king_x = 7, 5
+                                board[self.coord.y][self.coord.x] = '-'
+                                board[king_y][king_x] = self.char
+                                if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                    board[self.coord.y][self.coord.x] = self.char
+                                    board[king_y][king_x] = '-'
+                                    king_y, king_x = 7, 6
+                                    board[self.coord.y][self.coord.x] = '-'
+                                    board[king_y][king_x] = self.char
+                                    if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                        self.possible_moves.append(CoordCastling(king_y, king_x, 'K'))
+                else:
+                    if fen_state.black_long_castling:
+                        if not self.check_to_king(board, coord_of_king, self.color):
+                            left_1 = board[0][3]
+                            left_2 = board[0][2]
+                            left_3 = board[0][1]
+                            if left_1 == '-' and left_2 == '-' and left_3 == '-':
+                                king_y, king_x = 0, 3
+                                board[self.coord.y][self.coord.x] = '-'
+                                board[king_y][king_x] = self.char
+                                if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                    board[self.coord.y][self.coord.x] = self.char
+                                    board[king_y][king_x] = '-'
+                                    king_y, king_x = 0, 2
+                                    board[self.coord.y][self.coord.x] = '-'
+                                    board[king_y][king_x] = self.char
+                                    if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                        board[self.coord.y][self.coord.x] = self.char
+                                        board[king_y][king_x] = '-'
+                                        king_y, king_x = 0, 1
+                                        board[self.coord.y][self.coord.x] = '-'
+                                        board[king_y][king_x] = self.char
+                                        if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                            self.possible_moves.append(CoordCastling(king_y, king_x, 'q'))
+                    elif fen_state.black_short_castling:
+                        if not self.check_to_king(board, coord_of_king, self.color):
+                            right_1 = board[0][5]
+                            right_2 = board[0][6]
+                            if right_1 == '-' and right_2 == '-':
+                                king_y, king_x = 0, 5
+                                board[self.coord.y][self.coord.x] = '-'
+                                board[king_y][king_x] = self.char
+                                if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                    board[self.coord.y][self.coord.x] = self.char
+                                    board[king_y][king_x] = '-'
+                                    king_y, king_x = 7, 6
+                                    board[self.coord.y][self.coord.x] = '-'
+                                    board[king_y][king_x] = self.char
+                                    if not self.check_to_king(board, Coord(king_y, king_x), self.color):
+                                        self.possible_moves.append(CoordCastling(king_y, king_x, 'K'))
 
     @staticmethod
     def check_to_king(board: list[list], coord_of_king: Coord, color: Color) -> bool:

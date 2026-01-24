@@ -75,7 +75,7 @@ class Position:
         active_figures = self._white_figures if self._fen_state.active_color == Color.white else self._black_figures
         coord_of_king = self._coord_of_white_king if self._fen_state.active_color == Color.white else self._coord_of_black_king
         for figure in active_figures:
-            figure.generate_move(self._board, coord_of_king, self._fen_state.en_passant_cell)
+            figure.generate_move(self._board, coord_of_king, self._fen_state)
 
     def show_board(self) -> None:
         for line in self._board:
