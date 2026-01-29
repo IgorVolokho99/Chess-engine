@@ -1,8 +1,10 @@
+from pprint import pprint
+
 import pytest
 
-from src.enums import Color
-from src.figure import Figure
-from src.position import Position
+from src.engine.enums import Color
+from src.engine.figure import Figure
+from src.engine.position import Position
 
 
 class TestFigure:
@@ -51,7 +53,7 @@ class TestFigure:
     )
     def test_check_to_black_king_rook_with_check(self, fen: str, comment: str) -> None:
         pos = Position(fen)
-        assert Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black)
+        assert Figure.check_to_king(pos._board, pos._coord_of_black_king, Color.black), comment
 
     @pytest.mark.parametrize(
         "fen, comment",

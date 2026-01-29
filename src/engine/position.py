@@ -26,9 +26,9 @@ class Position:
         self._initialize()
 
     def _initialize(self) -> None:
+        self._fen_state = FenState(self._fen)
         self.fill_board()
         self.fill_figures_and_coords()
-        self._fen_state = FenState(self._fen)
         self.generate_moves()
 
     def fill_board(self) -> None:
@@ -111,5 +111,5 @@ class Position:
 
 
 if __name__ == "__main__":
-    position = Position("1k6/8/8/3pP3/8/8/8/1K6 w - d6 0 1")
+    position = Position("rnbqkbnr/pppppppp/8/8/8/BN3NBQ/PPPPPPPP/R3K2R w KQkq - 0 1")
     position.show_moves()

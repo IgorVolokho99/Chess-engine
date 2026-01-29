@@ -1,8 +1,8 @@
 import pytest
 
-from src.coord import Coord
-from src.enums import Color
-from src.position import Position
+from src.engine.coord import Coord
+from src.engine.enums import Color
+from src.engine.position import Position
 
 
 class TestPosition:
