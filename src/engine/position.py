@@ -68,8 +68,48 @@ class Position:
             self._black_figures.append(figure)
             self._black_coords.append(coord)
 
-    def generate_fen_from_board(self) -> None:
-        pass
+    def generate_fen_from_board(self) -> str:
+        fen = ''
+        for line in self._board:
+            s = ''
+            counter = 0
+            for cell in line:
+                if cell == '-':
+                    counter += 1
+                else:
+                    if counter != 0:
+                        s += str(counter)
+                    s += cell
+            if counter != 0:
+                s += str(counter)
+
+            fen += s + '/'
+        fen = fen[:-1]
+
+        if self._fen_state.active_color is Color.white:
+            fen += " w "
+        else:
+            fen += " b "
+
+        if self._fen_state.white_short_castling:
+            fen += 'K'
+        if self._fen_state.white_long_castling:
+            fen += 'Q'
+        if self._fen_state.black_short_castling:
+            fen += 'k'
+        if self._fen_state.black_long_castling:
+            fen += 'q'
+
+        if fen[-1] == ' ':
+            fen += '- '
+
+        if self._fen_state.el_passant_cell is not None:
+            fen += self._fen_state.el_passant_cell.chess_string_visualization()
+        else:
+            fen += '- '
+
+        fen += str(self._fen_state.move_without_pawn) + " "
+        fen += str(self._fen_state.move_clock)
 
     def generate_moves(self) -> None:
         active_figures = self._white_figures if self._fen_state.active_color == Color.white else self._black_figures
@@ -108,6 +148,21 @@ class Position:
                     else:
                         print(cell, end=' ')
             print()
+
+    def make_move(self, figure: Figure, move_from: Coord, move_to: Coord) -> None:
+        if move_to is Coord:
+            self._board[move_to.y][move_to.x] = self._board[move_from.y][move_from.x]
+            figure.coord = move_to
+        else:
+            pass
+
+    def is_win(self) -> True:
+        active_figures = self._white_figures if self._fen_state.active_color is Color.white else self._black_figures
+
+        for figure in active_figures:
+            if figure.possible_moves:
+                return False
+        return True
 
 
 if __name__ == "__main__":

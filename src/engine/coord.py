@@ -14,6 +14,10 @@ class Coord:
         self.y = y
         self.x = x
 
+    def chess_string_visualization(self) -> str:
+        transform = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H'}
+        return transform[self.x] + str(8 - self.y)
+
     def __eq__(self, other: "Coord") -> bool:
         return self.y == other.y and self.x == other.x
 
@@ -62,6 +66,7 @@ class CoordEnPassant(Coord):
 
 class CoordCastling(Coord):
     """Реализация шахматных координат для рокировок."""
+
     def __init__(self, y: int = None, x: int = None, type_of_castling: str = None) -> None:
         """Вызывает родительский конструктор и инициализирует атрибут figure.
 
@@ -73,7 +78,6 @@ class CoordCastling(Coord):
         """
         super().__init__(y, x)
         self.type_of_castling = type_of_castling
-
 
     def __repr__(self) -> str:
         return f"Coord({self.y}, {self.x}, Castling)"
