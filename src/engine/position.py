@@ -80,6 +80,7 @@ class Position:
                     if counter != 0:
                         s += str(counter)
                     s += cell
+                    counter = 0
             if counter != 0:
                 s += str(counter)
 
@@ -103,13 +104,15 @@ class Position:
         if fen[-1] == ' ':
             fen += '- '
 
-        if self._fen_state.el_passant_cell is not None:
+        if self._fen_state.en_passant_cell is not None:
             fen += self._fen_state.el_passant_cell.chess_string_visualization()
         else:
             fen += '- '
 
-        fen += str(self._fen_state.move_without_pawn) + " "
+        fen += str(self._fen_state.moves_without_pawn) + " "
         fen += str(self._fen_state.move_clock)
+
+        return fen
 
     def generate_moves(self) -> None:
         active_figures = self._white_figures if self._fen_state.active_color == Color.white else self._black_figures

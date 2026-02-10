@@ -1102,13 +1102,13 @@ class Figure:
             if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
                 return True
 
-        king_y, king_x = coord_of_king.y + 1, coord_of_king.x + 1
+        king_y, king_x = coord_of_king.y + 1, coord_of_king.x - 1
         if king_y < 8 and king_x < 8:
             cell = board[king_y][king_x]
             if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
                 return True
 
-        king_y, king_x = coord_of_king.y + 1, coord_of_king.x - 1
+        king_y, king_x = coord_of_king.y + 1, coord_of_king.x
         if king_y < 8 and king_x >= 0:
             cell = board[king_y][king_x]
             if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
@@ -1126,19 +1126,19 @@ class Figure:
             if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
                 return True
 
-        king_y, king_x = coord_of_king.y + 1, coord_of_king.x - 1
+        king_y, king_x = coord_of_king.y - 1, coord_of_king.x
         if king_y < 8 and king_x >= 0:
             cell = board[king_y][king_x]
             if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
                 return True
 
-        king_y, king_x = coord_of_king.y - 1, coord_of_king.x + 1
+        king_y, king_x = coord_of_king.y, coord_of_king.x + 1
         if king_y >= 0 and king_x < 8:
             cell = board[king_y][king_x]
             if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
                 return True
 
-        king_y, king_x = coord_of_king.y - 1, coord_of_king.x - 1
+        king_y, king_x = coord_of_king.y, coord_of_king.x - 1
         if king_y >= 0 and king_x >= 0:
             cell = board[king_y][king_x]
             if cell.isupper() != board[coord_of_king.y][coord_of_king.x].isupper() and cell.upper() == 'K':
