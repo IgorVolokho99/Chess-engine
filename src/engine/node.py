@@ -1,3 +1,5 @@
+import time
+
 from src.engine.enums import Color
 from src.engine.position import Position
 
@@ -44,13 +46,15 @@ class ChessEngine:
 
 
 def main():
-    position = Position("1k6/8/1KR5/8/8/8/8/8 w - - 0 1")
+    position = Position("2k5/8/3KR3/8/8/8/8/8 w - - 0 1")
     node = Node(position)
+    start_time = time.perf_counter()
     chess_engine = ChessEngine(node)
-    if chess_engine.generate_tree(node, 3, 0):
+    if chess_engine.generate_tree(node, 7, 0):
         print("Есть победа.")
     else:
         print("Нет победы.")
+    print(time.perf_counter() - start_time)
 
 
 if __name__ == "__main__":

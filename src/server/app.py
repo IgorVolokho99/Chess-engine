@@ -27,8 +27,32 @@ def login():
         return jsonify({"error": "login and password required"}), 400
 
     if login not in USERS or USERS[login] != password:
-        return jsonify({"error": "invalid credentialds"}), 401
+        return jsonify({"error": "invalid credentials"}), 401
 
+    session["user"] = login
+
+    return jsonify({"status": "OK"})
+
+
+@app.route("/register")
+def register_page():
+    return render_template("register.html")
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.json
+
+    login = data.get("login")
+    password = data.get("password")
+
+    if not login or not password:
+        return jsonify({"error": "login and password required"}), 400
+
+    if login in USERS:
+        return jsonify({"error": "user already exists"}), 409
+
+    USERS[login] = password
     session["user"] = login
 
     return jsonify({"status": "OK"})

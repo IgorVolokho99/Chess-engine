@@ -1,59 +1,49 @@
 <!DOCTYPE html>
-
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Регистрация</title>
 </head>
 <body>
-<h2>Вход</h2>
+<h2>Регистрация</h2>
 
 <input id="login" placeholder="Логин"><br><br>
 <input id="password" type="password" placeholder="Пароль"><br><br>
 
-<button onclick="sendLogin()">Войти</button>
-<button onclick="goRegister()">Регистрация</button>
+<button onclick="sendRegister()">Зарегистрироваться</button>
+<a href="/">Назад</a>
 
-
-<p id="message" style="color: red;"></p>
+<p id="message" style="color:red"></p>
 
 <script>
-    function goRegister() {
-        window.location.href = "/register"
-    }
-
-    function sendLogin() {
+    function sendRegister() {
         const login = document.getElementById("login").value;
         const password = document.getElementById("password").value;
         const message = document.getElementById("message");
 
         message.textContent = "";
 
-        fetch("/login", {
+        fetch("/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({login, password})
         })
-            .then(async response => {
-                const data = await response.json();
-
-                if (!response.ok) {
+            .then(async responce => {
+                const data = await responce.json();
+                if (!responce.ok) {
                     throw new Error(data.error);
                 }
-
                 return data;
             })
             .then(() => {
                 window.location.href = "/game";
             })
             .catch(err => {
-                message.style.color = "red";
                 message.textContent = err.message;
             });
     }
 </script>
-
 </body>
 </html>
