@@ -1,5 +1,6 @@
 from flask import Flask
 
+
 def main():
     print("Hello from chess-engine!")
 
