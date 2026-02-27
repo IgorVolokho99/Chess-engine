@@ -1,7 +1,8 @@
 import datetime
+from typing import List
 
 from sqlalchemy import String, Integer, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.infrastructure.db.base import Base
 
@@ -14,3 +15,6 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(30), unique=True)
     password_hash: Mapped[str] = mapped_column(String(30))
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.now)
+
+    games: Mapped[List["Game"]] = relationship(back_populates="users")
+    moves: Mapped[List["Move"]] = relationship(back_populates="users")
