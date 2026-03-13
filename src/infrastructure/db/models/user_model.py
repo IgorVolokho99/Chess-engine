@@ -16,5 +16,11 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(String(30))
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.now)
 
-    games: Mapped[List["Game"]] = relationship(back_populates="users")
-    moves: Mapped[List["Move"]] = relationship(back_populates="users")
+    games: Mapped[List["Game"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+    moves: Mapped[List["Move"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )

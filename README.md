@@ -43,3 +43,9 @@ uv sync --no-dev
 uv run python main.py
 ```
 
+
+
+## Alembic
+```initial command
+alembic init alembic
+```

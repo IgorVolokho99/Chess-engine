@@ -10,10 +10,10 @@ class Move(Base):
     __tablename__ = "moves"
 
     id: [int] = Column(Integer, unique=True, autoincrement=True, primary_key=True)
-    user_id: [int] = Column(Integer, ForeignKey("user.id"))
-    game_id: [int] = Column(Integer, ForeignKey("game.id"))
+    user_id: [int] = Column(Integer, ForeignKey("users.id"))
+    game_id: [int] = Column(Integer, ForeignKey("games.id"))
     move_number: [int] = Column(Integer)
     played_at: [datetime.datetime] = Column(DateTime, default=datetime.datetime.now)
 
-    user: Mapped["User"] = relationship(back_populates="users")
-    game: Mapped["Game"] = relationship(back_populates="games")
+    user: Mapped["User"] = relationship(back_populates="moves")
+    game: Mapped["Game"] = relationship(back_populates="moves")
