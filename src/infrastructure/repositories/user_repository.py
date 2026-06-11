@@ -1,4 +1,4 @@
-from src.domain.repositories.user_repository import UserRepository
+from src.application.ports.repositories import UserRepository
 
 
 class MySqlUserRepository(UserRepository):

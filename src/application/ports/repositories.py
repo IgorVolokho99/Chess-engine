@@ -1,13 +1,14 @@
-from abc import ABC, abstractmethod
+from typing import Protocol
 
 from src.domain.entities.user import User
 
 
-class UserRepository(ABC):
-    @abstractmethod
+class UserRepository(Protocol):
     def is_exist_user_name(self, user_name: str) -> bool:
         ...
 
-    @abstractmethod
     def save_user(self, user: User) -> None:
+        ...
+
+    def get_by_user_name(self, user_name: str) -> User:
         ...
