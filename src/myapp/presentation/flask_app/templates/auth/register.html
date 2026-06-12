@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Chess Club | Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+      :root {
+        --bg: #f5f1e8;
+        --card-bg: #fffaf0;
+        --text: #1f1f1f;
+        --muted: #777;
+        --border: #d8cdb8;
+        --accent: #2f2f2f;
+        --accent-hover: #111;
+        --danger: #b00020;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, Arial, sans-serif;
+        background:
+          linear-gradient(45deg, rgba(0, 0, 0, 0.035) 25%, transparent 25%),
+          linear-gradient(-45deg, rgba(0, 0, 0, 0.035) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.035) 75%),
+          linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.035) 75%),
+          var(--bg);
+        background-size: 64px 64px;
+        background-position: 0 0, 0 32px, 32px -32px, -32px 0;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .register-card {
+        width: 100%;
+        max-width: 430px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 36px;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.12);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .logo-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: var(--accent);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .logo-title {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .logo-subtitle {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        letter-spacing: -0.04em;
+      }
+
+      .description {
+        margin: 0 0 28px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        height: 46px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 0 14px;
+        font-size: 15px;
+        background: #fff;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(47, 47, 47, 0.12);
+      }
+
+      .password-wrapper {
+        position: relative;
+      }
+
+      .password-wrapper input {
+        padding-right: 92px;
+      }
+
+      .show-password-btn {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        height: 32px;
+        border: none;
+        border-radius: 10px;
+        padding: 0 10px;
+        background: #eee6d8;
+        color: var(--text);
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .show-password-btn:hover {
+        background: #e3d8c6;
+      }
+
+      .password-rules {
+        margin-top: 10px;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .password-rules li.valid {
+        color: #16753b;
+      }
+
+      .password-rules li.invalid {
+        color: var(--muted);
+      }
+
+      .submit-btn {
+        width: 100%;
+        height: 48px;
+        margin-top: 8px;
+        border: none;
+        border-radius: 16px;
+        background: var(--accent);
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.15s ease, transform 0.1s ease;
+      }
+
+      .submit-btn:hover {
+        background: var(--accent-hover);
+      }
+
+      .submit-btn:active {
+        transform: scale(0.99);
+      }
+
+      .login-link {
+        margin-top: 22px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .login-link a {
+        color: var(--text);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+
+      .flash-message {
+        margin-bottom: 18px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: #ffe8e8;
+        color: var(--danger);
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="register-card">
+      <div class="logo">
+        <div class="logo-icon">♞</div>
+
+        <div class="logo-text">
+          <span class="logo-title">Chess Club</span>
+          <span class="logo-subtitle">Think. Play. Improve.</span>
+        </div>
+      </div>
+
+      <h1>Create account</h1>
+      <p class="description">
+        Join the board, track your games, and improve your chess skills.
+      </p>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="flash-message">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form id="registerForm" method="post" novalidate>
+        <div class="form-group">
+          <label for="user_name">Username</label>
+          <input
+            id="user_name"
+            name="user_name"
+            type="text"
+            placeholder="chess_master_99"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <div class="password-wrapper">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Create a strong password"
+              required
+            >
+
+            <button
+              class="show-password-btn"
+              type="button"
+              id="togglePasswordBtn"
+            >
+              Show
+            </button>
+          </div>
+
+          <ul class="password-rules">
+            <li id="ruleLength" class="invalid">At least 8 characters</li>
+            <li id="ruleLower" class="invalid">At least one lowercase Latin letter</li>
+            <li id="ruleUpper" class="invalid">At least one uppercase Latin letter</li>
+            <li id="ruleDigit" class="invalid">At least one digit</li>
+          </ul>
+        </div>
+
+        <div class="form-group">
+          <label for="repeat_password">Repeat password</label>
+
+          <div class="password-wrapper">
+            <input
+              id="repeat_password"
+              name="repeat_password"
+              type="password"
+              placeholder="Repeat your password"
+              required
+            >
+          </div>
+        </div>
+
+        <button class="submit-btn" type="submit">
+          Register
+        </button>
+      </form>
+
+    </main>
+
+    <script>
+      const form = document.getElementById("registerForm");
+
+      const passwordInput = document.getElementById("password");
+      const repeatPasswordInput = document.getElementById("repeat_password");
+      const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+
+      const ruleLength = document.getElementById("ruleLength");
+      const ruleLower = document.getElementById("ruleLower");
+      const ruleUpper = document.getElementById("ruleUpper");
+      const ruleDigit = document.getElementById("ruleDigit");
+
+      function validatePassword(password) {
+        return {
+          hasMinLength: password.length >= 8,
+          hasLowercase: /[a-z]/.test(password),
+          hasUppercase: /[A-Z]/.test(password),
+          hasDigit: /\d/.test(password),
+        };
+      }
+
+      function isPasswordStrong(password) {
+        const result = validatePassword(password);
+
+        return (
+          result.hasMinLength &&
+          result.hasLowercase &&
+          result.hasUppercase &&
+          result.hasDigit
+        );
+      }
+
+      function updatePasswordRules() {
+        const password = passwordInput.value;
+        const result = validatePassword(password);
+
+        ruleLength.className = result.hasMinLength ? "valid" : "invalid";
+        ruleLower.className = result.hasLowercase ? "valid" : "invalid";
+        ruleUpper.className = result.hasUppercase ? "valid" : "invalid";
+        ruleDigit.className = result.hasDigit ? "valid" : "invalid";
+      }
+
+      passwordInput.addEventListener("input", updatePasswordRules);
+
+      togglePasswordBtn.addEventListener("click", function () {
+        const isPasswordHidden = passwordInput.type === "password";
+
+        passwordInput.type = isPasswordHidden ? "text" : "password";
+        repeatPasswordInput.type = isPasswordHidden ? "text" : "password";
+
+        togglePasswordBtn.textContent = isPasswordHidden ? "Hide" : "Show";
+      });
+
+      form.addEventListener("submit", function (event) {
+        const password = passwordInput.value;
+        const repeatPassword = repeatPasswordInput.value;
+
+        if (!isPasswordStrong(password)) {
+          event.preventDefault();
+
+          alert(
+            "Password is too weak.\n\n" +
+            "Password must contain:\n" +
+            "- at least 8 characters\n" +
+            "- at least one lowercase Latin letter\n" +
+            "- at least one uppercase Latin letter\n" +
+            "- at least one digit"
+          );
+
+          return;
+        }
+
+        if (password !== repeatPassword) {
+          event.preventDefault();
+
+          alert("Passwords do not match. Please try again.");
+
+          return;
+        }
+      });
+    </script>
+  </body>
+</html>

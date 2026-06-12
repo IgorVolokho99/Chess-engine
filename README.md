@@ -49,3 +49,9 @@ uv run python main.py
 ```initial command
 alembic init alembic
 ```
+
+
+## Flask
+```run flask app
+flask --app src.myapp.run run
+```
