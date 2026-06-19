@@ -1,10 +1,13 @@
 import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Column, Integer, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, relationship
 
 from src.myapp.infrastructure.db.base import Base
 
+if TYPE_CHECKING:
+    from src.myapp.infrastructure.db import User, Game
 
 class Move(Base):
     __tablename__ = "moves"

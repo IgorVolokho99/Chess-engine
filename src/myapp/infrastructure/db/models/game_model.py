@@ -1,5 +1,5 @@
 import datetime
-from typing import List
+from typing import List, TYPE_CHECKING
 
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, relationship
@@ -7,6 +7,9 @@ from sqlalchemy.orm import Mapped, relationship
 from src.myapp.domain.enums.game_result import Result
 from src.myapp.domain.enums.status import Status
 from src.myapp.infrastructure.db.base import Base
+
+if TYPE_CHECKING:
+    from src.myapp.infrastructure.db import User, Move
 
 
 class Game(Base):
