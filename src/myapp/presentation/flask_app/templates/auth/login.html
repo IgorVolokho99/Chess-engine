@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Chess Club | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+      :root {
+        --bg: #f5f1e8;
+        --card-bg: #fffaf0;
+        --text: #1f1f1f;
+        --muted: #777;
+        --border: #d8cdb8;
+        --accent: #2f2f2f;
+        --accent-hover: #111;
+        --danger-bg: #ffe7e7;
+        --danger-text: #9f1d1d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        font-family: Inter, Arial, sans-serif;
+        color: var(--text);
+        background:
+          linear-gradient(45deg, rgba(0, 0, 0, 0.035) 25%, transparent 25%),
+          linear-gradient(-45deg, rgba(0, 0, 0, 0.035) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.035) 75%),
+          linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.035) 75%),
+          var(--bg);
+        background-size: 64px 64px;
+        background-position: 0 0, 0 32px, 32px -32px, -32px 0;
+      }
+
+      .login-card {
+        width: 100%;
+        max-width: 430px;
+        padding: 36px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.12);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 30px;
+      }
+
+      .brand-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: var(--accent);
+        color: white;
+        font-size: 26px;
+      }
+
+      .brand-title {
+        display: block;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .brand-subtitle {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        letter-spacing: -0.04em;
+      }
+
+      .description {
+        margin: 0 0 28px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .flash-message {
+        margin-bottom: 18px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: var(--danger-bg);
+        color: var(--danger-text);
+        font-size: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        height: 46px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 0 14px;
+        color: var(--text);
+        background: white;
+        font-size: 15px;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(47, 47, 47, 0.12);
+      }
+
+      .password-wrapper {
+        position: relative;
+      }
+
+      .password-wrapper input {
+        padding-right: 90px;
+      }
+
+      .toggle-password-btn {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        height: 32px;
+        padding: 0 10px;
+        transform: translateY(-50%);
+        border: none;
+        border-radius: 10px;
+        background: #eee6d8;
+        color: var(--text);
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .toggle-password-btn:hover {
+        background: #e3d8c6;
+      }
+
+      .submit-btn {
+        width: 100%;
+        height: 48px;
+        margin-top: 8px;
+        border: none;
+        border-radius: 16px;
+        background: var(--accent);
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .submit-btn:hover {
+        background: var(--accent-hover);
+      }
+
+      .register-link {
+        margin-top: 22px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .register-link a {
+        color: var(--text);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .register-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="login-card">
+      <div class="brand">
+        <div class="brand-icon">♞</div>
+
+        <div>
+          <span class="brand-title">Chess Club</span>
+          <span class="brand-subtitle">Think. Play. Improve.</span>
+        </div>
+      </div>
+
+      <h1>Welcome back</h1>
+
+      <p class="description">
+        Sign in and continue your chess journey.
+      </p>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="flash-message">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="post">
+        <div class="form-group">
+          <label for="user_name">Username</label>
+
+          <input
+            id="user_name"
+            name="user_name"
+            type="text"
+            placeholder="chess_master_99"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <div class="password-wrapper">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Your password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              id="togglePasswordBtn"
+              class="toggle-password-btn"
+              type="button"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <button class="submit-btn" type="submit">
+          Log in
+        </button>
+      </form>
+
+      <div class="register-link">
+        New to Chess Club?
+        <a href="{{ url_for('auth.register_page') }}">Create account</a>
+      </div>
+    </main>
+
+    <script>
+      const passwordInput = document.getElementById("password");
+      const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+
+      togglePasswordBtn.addEventListener("click", function () {
+        const isHidden = passwordInput.type === "password";
+
+        passwordInput.type = isHidden ? "text" : "password";
+        togglePasswordBtn.textContent = isHidden ? "Hide" : "Show";
+      });
+    </script>
+  </body>
+</html>

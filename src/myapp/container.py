@@ -19,6 +19,7 @@ from dataclasses import dataclass
 
 from sqlalchemy import Engine
 
+from src.myapp.application.users.use_cases.login_user import LoginUserUseCase
 from src.myapp.application.users.use_cases.register_user import RegisterUserUseCase
 from src.myapp.infrastructure.db.session import build_session_factory
 from src.myapp.infrastructure.repositories.unit_of_work import SqlAlchemyUnitOfWork
@@ -28,6 +29,7 @@ from src.myapp.infrastructure.security.werkzeud_password_hasher import WerkzeugP
 @dataclass(frozen=True)
 class UseCases:
     register_user: RegisterUserUseCase
+    login_user: LoginUserUseCase
 
 
 @dataclass(frozen=True)
@@ -44,6 +46,10 @@ def bootstrap(database_url: str) -> Container:
 
     user_cases = UseCases(
         register_user=RegisterUserUseCase(
+            uow_factory=uow_factory,
+            password_hasher=password_hasher,
+        ),
+        login_user=LoginUserUseCase(
             uow_factory=uow_factory,
             password_hasher=password_hasher,
         ),
