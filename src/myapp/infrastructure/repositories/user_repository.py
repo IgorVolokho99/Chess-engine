@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -40,4 +42,18 @@ class SqlAlchemyUserRepository:
             email=model.email,
             password_hash=model.password_hash,
             created_at=model.created_at,
+        )
+
+
+    def get_by_id(self, user_id: int) -> Optional[User]:
+        model = self._session.get(UserModel, user_id)
+
+        if model is None:
+            return None
+
+        return User(
+            id=model.id,
+            user_name=model.username,
+            email=model.email,
+            password_hash=model.password_hash,
         )

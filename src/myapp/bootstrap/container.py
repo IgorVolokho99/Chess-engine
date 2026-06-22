@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from src.myapp.application.users.use_cases.get_current_user import GetCurrentUserUseCase
 from src.myapp.application.users.use_cases.login_user import LoginUserUseCase
 from src.myapp.application.users.use_cases.register_user import RegisterUserUseCase
 from src.myapp.infrastructure.db.session import build_session_factory
@@ -11,6 +12,7 @@ from src.myapp.infrastructure.security.werkzeud_password_hasher import WerkzeugP
 class UseCases:
     register_user: RegisterUserUseCase
     login_user: LoginUserUseCase
+    get_current_user: GetCurrentUserUseCase
 
 
 @dataclass(frozen=True)
@@ -32,6 +34,9 @@ def bootstrap(database_url: str) -> Container:
         login_user=LoginUserUseCase(
             uow_factory=uow_factory,
             password_hasher=password_hasher,
+        ),
+        get_current_user=GetCurrentUserUseCase(
+            uow_factory=uow_factory,
         ),
     )
 
