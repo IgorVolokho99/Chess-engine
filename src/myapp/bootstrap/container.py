@@ -1,23 +1,4 @@
-# from dataclasses import dataclass
-#
-# from src.myapp.application.ports.unit_of_work import UnitOfWork
-# from src.myapp.application.users.use_cases.register_user import RegisterUserUseCase
-# from src.myapp.infrastructure import build_session_factory
-#
-#
-#
-# @dataclass(frozen=True)
-# class UseCases:
-#     register_user: RegisterUserUseCase
-#
-#
-# def bootstrap(database_url: str) -> UseCases:
-#     session_factory = build_session_factory(database_url)
-#
-#     unit_of_work = UnitOfWork(session_factory)
 from dataclasses import dataclass
-
-from sqlalchemy import Engine
 
 from src.myapp.application.users.use_cases.login_user import LoginUserUseCase
 from src.myapp.application.users.use_cases.register_user import RegisterUserUseCase
@@ -34,7 +15,6 @@ class UseCases:
 
 @dataclass(frozen=True)
 class Container:
-    # engine: Engine
     use_cases: UseCases
 
 
