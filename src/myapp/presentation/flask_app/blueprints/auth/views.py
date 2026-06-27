@@ -32,7 +32,7 @@ def register_action():
         flash("User with this email already exists.")
         return redirect(url_for("auth.register_page"))
 
-    return redirect(url_for("auth.register_success_page", user_id=user_id))
+    return redirect(url_for("main.index", user_id=user_id))
 
 
 @auth_bp.get("/login")
@@ -58,7 +58,7 @@ def login_action():
     session.clear()
     session["user_id"] = user_id
 
-    return redirect(url_for("auth.profile_page"))
+    return redirect(url_for("main.index"))
 
 
 @auth_bp.get("/profile")
@@ -76,11 +76,3 @@ def logout_action():
     session.clear()
 
     return redirect(url_for("auth.login_page"))
-
-
-@auth_bp.get("/register/success/<int:user_id>")
-def register_success_page(user_id: int):
-    return render_template(
-        "auth/register_success.html",
-        user_id=user_id,
-    )
