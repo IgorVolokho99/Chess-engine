@@ -1,0 +1,33 @@
+name: MariaNet
+  app:
+    image:
+    init:
+    restart:
+    stop_grace_period:
+    environment:
+    secrets:
+    networks:
+    depends_on:
+
+
+  db:
+    image:
+    restart:
+    stop_grace_period:
+    environment:
+    secrets:
+    volumes:
+    networks:
+
+    healthcheck:
+
+    mem_limit
+        
+  
+volumes:
+
+
+secrets:
+
+
+networks:
