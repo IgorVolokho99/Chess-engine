@@ -1,33 +1,32 @@
 name: MariaNet
-  app:
-    image:
-    init:
-    restart:
-    stop_grace_period:
-    environment:
-    secrets:
-    networks:
-    depends_on:
 
 
+services:
   db:
-    image:
-    restart:
-    stop_grace_period:
-    environment:
+    image: mysql:9.7
+    container_name: mysql-db
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
+
+    env_file: ".env"    
+
     secrets:
+
+
     volumes:
+      - mysql_data:/var/lib/mysql
     networks:
+      - app-network
 
-    healthcheck:
-
-    mem_limit
-        
   
 volumes:
-
-
-secrets:
-
-
+  db_data:
 networks:
+  app-network:
+    driver: bridge 
+
+# secrets:
+
+
+# networks:
