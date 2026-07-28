@@ -3,30 +3,45 @@ name: MariaNet
 
 services:
   db:
-    image: mysql:9.7
-    container_name: mysql-db
+    image: postgres:17-alpine
+    container_name: marianet-postgres
     init: true
     restart: unless-stopped
     stop_grace_period: 30s
 
-    env_file: ".env"    
+    environment:
+      POSTGRES_DB: marianet
+      POSTGRES_USER: marianet_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
 
     secrets:
-
+      - db_password
 
     volumes:
-      - mysql_data:/var/lib/mysql
+      - psql_data:/var/lib/postgresql/data
+
+    ports:
+      - "127.0.0.1:5432:5432"
+
     networks:
       - app-network
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
   
 volumes:
-  db_data:
+  psql_data:
+
 networks:
   app-network:
     driver: bridge 
 
-# secrets:
-
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
 
 # networks:
