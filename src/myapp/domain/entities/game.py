@@ -1,7 +1,7 @@
 import datetime
 
-from src.myapp.domain.enums.game_result import Result
-from src.myapp.domain.enums.status import Status
+from src.myapp.domain.enums.game_result import GameResult
+from src.myapp.domain.enums.status import GameStatus
 
 
 class Game:
@@ -9,8 +9,8 @@ class Game:
             self,
             id: int,
             user_id: int,
-            status: Status,
-            result: Result,
+            status: GameStatus,
+            result: GameResult,
             fen_start: str,
             fen_current: str,
             created_at: datetime.datetime,

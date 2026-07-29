@@ -4,8 +4,8 @@ from typing import List, TYPE_CHECKING
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, relationship
 
-from src.myapp.domain.enums.game_result import Result
-from src.myapp.domain.enums.status import Status
+from src.myapp.domain.enums.game_result import GameResult
+from src.myapp.domain.enums.status import GameStatus
 from src.myapp.infrastructure.db.base import Base
 
 if TYPE_CHECKING:
@@ -17,8 +17,8 @@ class Game(Base):
 
     id: Mapped[int] = Column(Integer, unique=True, autoincrement=True, primary_key=True)
     user_id: Mapped[int] = Column(Integer, ForeignKey("users.id"))
-    status: Mapped[Status]
-    result: Mapped[Result]
+    status: Mapped[GameStatus]
+    result: Mapped[GameResult]
     fen_start: Mapped[str] = Column(String(100))
     fen_current: Mapped[str] = Column(String(100))
     created_at: Mapped[datetime.datetime] = Column(DateTime, default=datetime.datetime.now)

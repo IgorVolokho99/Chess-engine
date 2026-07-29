@@ -1,8 +1,8 @@
-"""initial schema of servers dbclear
+"""Initial migration. Tables users, games, moves.
 
-Revision ID: 6c26098a8d1a
+Revision ID: 60a64feeb804
 Revises: 
-Create Date: 2026-03-13 23:24:28.112804
+Create Date: 2026-07-29 21:42:23.903942
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '6c26098a8d1a'
+revision: str = '60a64feeb804'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -25,7 +25,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('username', sa.String(length=30), nullable=False),
     sa.Column('email', sa.String(length=30), nullable=False),
-    sa.Column('password_hash', sa.String(length=300), nullable=False),
+    sa.Column('password_hash', sa.String(length=500), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
@@ -35,8 +35,8 @@ def upgrade() -> None:
     op.create_table('games',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('status', sa.Enum('ACTIVE', 'FINISHED', 'ABANDONED', name='status'), nullable=False),
-    sa.Column('result', sa.Enum('WHITE_WIN', 'BLACK_WIN', 'DRAW', 'UNKNOWN', name='result'), nullable=False),
+    sa.Column('status', sa.Enum('ACTIVE', 'FINISHED', 'ABANDONED', name='gamestatus'), nullable=False),
+    sa.Column('result', sa.Enum('WHITE_WIN', 'BLACK_WIN', 'DRAW', 'UNKNOWN', name='gameresult'), nullable=False),
     sa.Column('fen_start', sa.String(length=100), nullable=True),
     sa.Column('fen_current', sa.String(length=100), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),

@@ -32,7 +32,29 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
-  
+
+  migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    command: alembic upgrade head
+
+    env_file:
+      - .env.compose
+
+    secrets:
+      - db_password
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    networks:
+      - app-network
+
+    restart: "no"
+
 volumes:
   psql_data:
 

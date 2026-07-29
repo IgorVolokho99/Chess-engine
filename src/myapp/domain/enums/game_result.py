@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Result(str, Enum):
+class GameResult(str, Enum):
     WHITE_WIN = "WHITE_WIN"
     BLACK_WIN = "BLACK_WIN"
     DRAW = "DRAW"

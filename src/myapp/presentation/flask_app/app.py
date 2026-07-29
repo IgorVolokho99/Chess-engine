@@ -9,9 +9,9 @@ from src.myapp.presentation.flask_app.blueprints.main.views import main_bp
 def create_app(config_object: type = DevelopmentConfig) -> Flask:
     app = Flask(__name__)
     app.config.from_object(config_object)
-
     container = bootstrap(
-        database_url=app.config["DATABASE_URL"]
+        database_url=app.config["DATABASE_URL"],
+        # database_url=config_object.get_database_url(),
     )
 
     app.extensions["use_cases"] = container.use_cases
