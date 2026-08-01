@@ -55,6 +55,33 @@ services:
 
     restart: "no"
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    container_name: marianet_server
+    command: flask --app src.myapp.run run --host=0.0.0.0
+
+    ports:
+      - "5000:5000/tcp"
+
+    env_file:
+      - .env.compose
+    
+    secrets:
+      - db_password
+
+    depends_on:
+      db:
+        condition: service_healthy
+    
+    networks:
+      - app-network
+    
+    restart: unless-stopped
+    stop_grace_period: 30s
+
 volumes:
   psql_data:
 

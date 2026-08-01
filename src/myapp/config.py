@@ -88,19 +88,14 @@ def get_database_url() -> str:
 
 class BaseConfig:
     SECRET_KEY = "dev-secret-key"
-
-    # DATABASE_URL = "mysql+pymysql://app_user:app_pass@localhost:3306/app_db"
     DATABASE_URL = get_database_url()
 
 
 class DevelopmentConfig(BaseConfig):
     TESTING = True
-
-    # DATABASE_URL = "mysql+pymysql://app_user:app_pass@localhost:3306/app_db"
     DATABASE_URL = get_database_url()
 
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
-    # DATABASE_URL = "mysql+pymysql://app_user:app_pass@localhost:3306/app_db"
     DATABASE_URL = get_database_url()

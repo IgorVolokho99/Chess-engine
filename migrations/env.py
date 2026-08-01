@@ -8,8 +8,7 @@ from sqlalchemy import engine_from_config, pool
 
 from src.myapp.config import get_database_url
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.append(str(PROJECT_ROOT))
+
 
 from src.myapp.infrastructure.db import User, Move, Game
 from src.myapp.infrastructure.db.base import Base
@@ -17,6 +16,8 @@ from src.myapp.infrastructure.db.base import Base
 # Load local env only if env vars are not already provided.
 # Inside Docker, Compose provides env vars from .env.compose,
 # so this will not override them.
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(PROJECT_ROOT))
 load_dotenv(PROJECT_ROOT / ".env.local", override=False)
 
 # Import all models so Base.metadata knows about them.

@@ -51,7 +51,17 @@ flask --app src.myapp.run run
 
 ## Docker
 
+### Launch DataBase
+```
+docker compose up -d db
+```
+
+### Clear docker dependecies
 ```
 docker compose down --volumes
 ```
 
+### Migrations
+```
+docker compose run --rm --build migrations
+```
