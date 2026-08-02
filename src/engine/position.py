@@ -111,6 +111,7 @@ class Position:
 
         fen += str(self._fen_state.moves_without_pawn) + " "
         fen += str(self._fen_state.move_clock)
+        
 
         return fen
 
