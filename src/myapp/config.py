@@ -83,7 +83,7 @@ def get_database_password() -> str:
 def get_database_url() -> str:
     PROJECT_ROOT = Path(__file__).resolve().parents[2]
     load_dotenv(PROJECT_ROOT / ".env.local", override=False)
-    return f"{os.getenv('DB_DRIVER')}://{os.getenv('DB_USER')}:{get_database_password()}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+    return f"{os.getenv('DB_DRIVER')}://{os.getenv('POSTGRES_USER')}:{get_database_password()}@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DB')}"
 
 
 class BaseConfig:

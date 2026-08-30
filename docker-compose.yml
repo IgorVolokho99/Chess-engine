@@ -2,17 +2,14 @@ name: MariaNet
 
 
 services:
-  db:
+  marianet-postgres:
     image: postgres:17-alpine
-    container_name: marianet-postgres
     init: true
     restart: unless-stopped
     stop_grace_period: 30s
 
-    environment:
-      POSTGRES_DB: marianet
-      POSTGRES_USER: marianet_user
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    env_file:
+      - .env.compose
 
     secrets:
       - db_password
@@ -21,10 +18,10 @@ services:
       - psql_data:/var/lib/postgresql/data
 
     ports:
-      - "127.0.0.1:5432:5432"
+      - "5432:5432"
 
     networks:
-      - app-network
+      - marianet-network
 
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
@@ -47,11 +44,11 @@ services:
       - db_password
 
     depends_on:
-      db:
+      marianet-postgres:
         condition: service_healthy
 
     networks:
-      - app-network
+      - marianet-network
 
     restart: "no"
 
@@ -73,11 +70,11 @@ services:
       - db_password
 
     depends_on:
-      db:
+      marianet-postgres:
         condition: service_healthy
     
     networks:
-      - app-network
+      - marianet-network
     
     restart: unless-stopped
     stop_grace_period: 30s
@@ -86,11 +83,9 @@ volumes:
   psql_data:
 
 networks:
-  app-network:
+  marianet-network:
     driver: bridge 
 
 secrets:
   db_password:
     file: ./secrets/db_password.txt
-
-# networks:
