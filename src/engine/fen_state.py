@@ -2,7 +2,7 @@
 from src.engine.coord import CoordEnPassant
 from src.engine.enums import Color
 
-from_letter_to_digit = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
+from_letter_to_digit = {"a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5, "g": 6, "h": 7}
 
 
 class FenState:
@@ -23,32 +23,32 @@ class FenState:
         self.parse_fen(fen)
 
     def parse_fen(self, fen: str) -> None:
-        fen_parts = fen.split(' ')
+        fen_parts = fen.split(" ")
 
         self.board_part = fen_parts[0]
 
-        if fen_parts[1] == 'w':
+        if fen_parts[1] == "w":
             self.active_color = Color.white
         else:
             self.active_color = Color.black
 
-        if 'K' in fen_parts[2]:
+        if "K" in fen_parts[2]:
             self.white_short_castling = True
-        if 'Q' in fen_parts[2]:
+        if "Q" in fen_parts[2]:
             self.white_long_castling = True
-        if 'k' in fen_parts[2]:
+        if "k" in fen_parts[2]:
             self.black_short_castling = True
-        if 'q' in fen_parts[2]:
+        if "q" in fen_parts[2]:
             self.black_long_castling = True
 
-        if fen_parts[3] != '-':
+        if fen_parts[3] != "-":
             letter = fen_parts[3][0]
             digit = fen_parts[3][1]
             coord_x = from_letter_to_digit[letter]
             coord_y = 8 - int(digit)
             self.en_passant_cell = CoordEnPassant(coord_y, coord_x)
 
-        if fen_parts[4] == '-':
+        if fen_parts[4] == "-":
             self.moves_without_pawn = 0
         else:
             self.moves_without_pawn = int(fen_parts[4])

@@ -28,7 +28,7 @@ class ChessEngine:
             for move in figure.possible_moves:
                 old_figure = node.position._board[move.y][move.x]
                 node.position._board[move.y][move.x] = figure.char
-                node.position._board[figure.coord.y][figure.coord.x] = '-'
+                node.position._board[figure.coord.y][figure.coord.x] = "-"
                 node.position._fen_state.active_color = next_color
                 # Обработать изменение полей
                 new_fen = node.position.generate_fen_from_board()
@@ -41,8 +41,7 @@ class ChessEngine:
 
         if amount_of_moves % 2 == 1:
             return any(self.generate_tree(Node(child), depth, amount_of_moves) for child in children)
-        else:
-            return all(self.generate_tree(Node(child), depth, amount_of_moves) for child in children)
+        return all(self.generate_tree(Node(child), depth, amount_of_moves) for child in children)
 
 
 def main():

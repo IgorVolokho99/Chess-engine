@@ -1,7 +1,7 @@
 import datetime
-from typing import List, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Integer, DateTime
+from sqlalchemy import DateTime, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.myapp.infrastructure.db.base import Base
@@ -18,11 +18,11 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(String(500))
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.now)
 
-    games: Mapped[List["Game"]] = relationship(
+    games: Mapped[list[Game]] = relationship(
         back_populates="user",
         cascade="all, delete-orphan",
     )
-    moves: Mapped[List["Move"]] = relationship(
+    moves: Mapped[list[Move]] = relationship(
         back_populates="user",
         cascade="all, delete-orphan",
     )

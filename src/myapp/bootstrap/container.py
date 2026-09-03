@@ -5,7 +5,9 @@ from src.myapp.application.users.use_cases.login_user import LoginUserUseCase
 from src.myapp.application.users.use_cases.register_user import RegisterUserUseCase
 from src.myapp.infrastructure.db.session import build_session_factory
 from src.myapp.infrastructure.repositories.unit_of_work import SqlAlchemyUnitOfWork
-from src.myapp.infrastructure.security.werkzeud_password_hasher import WerkzeugPasswordHasher
+from src.myapp.infrastructure.security.werkzeud_password_hasher import (
+    WerkzeugPasswordHasher,
+)
 
 
 @dataclass(frozen=True)

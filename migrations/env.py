@@ -6,11 +6,7 @@ from alembic import context
 from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
-from src.myapp.config import get_database_url
-
-
-
-from src.myapp.infrastructure.db import User, Move, Game
+from src.myapp.infrastructure.config import get_database_url
 from src.myapp.infrastructure.db.base import Base
 
 # Load local env only if env vars are not already provided.

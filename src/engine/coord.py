@@ -10,15 +10,16 @@ class Coord:
         Args:
             y(int) : Координата по вертикали;
             x(int) : Координата по горизонтали.
+
         """
         self.y = y
         self.x = x
 
     def chess_string_visualization(self) -> str:
-        transform = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H'}
+        transform = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H"}
         return transform[self.x] + str(8 - self.y)
 
-    def __eq__(self, other: "Coord") -> bool:
+    def __eq__(self, other: Coord) -> bool:
         return self.y == other.y and self.x == other.x
 
     def __str__(self) -> str:

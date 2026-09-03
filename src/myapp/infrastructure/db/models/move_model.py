@@ -1,13 +1,13 @@
 import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, DateTime, ForeignKey, Integer
 from sqlalchemy.orm import Mapped, relationship
 
 from src.myapp.infrastructure.db.base import Base
 
 if TYPE_CHECKING:
-    from src.myapp.infrastructure.db import User, Game
+    from src.myapp.infrastructure.db import Game, User
 
 class Move(Base):
     __tablename__ = "moves"
@@ -18,5 +18,5 @@ class Move(Base):
     move_number: [int] = Column(Integer)
     played_at: [datetime.datetime] = Column(DateTime, default=datetime.datetime.now)
 
-    user: Mapped["User"] = relationship(back_populates="moves")
-    game: Mapped["Game"] = relationship(back_populates="moves")
+    user: Mapped[User] = relationship(back_populates="moves")
+    game: Mapped[Game] = relationship(back_populates="moves")

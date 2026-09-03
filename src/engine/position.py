@@ -13,9 +13,10 @@ class Position:
 
         Args:
             fen: Строка, представляющая из себя нотацию Форсайта — Эдвардса.
+
         """
         self._fen = fen
-        self._board = [['-'] * 8 for _ in range(8)]
+        self._board = [["-"] * 8 for _ in range(8)]
         self._white_figures = []
         self._black_figures = []
         self._white_coords = []
@@ -32,7 +33,7 @@ class Position:
         self.generate_moves()
 
     def fill_board(self) -> None:
-        board_parts = self._fen_state.board_part.split('/')
+        board_parts = self._fen_state.board_part.split("/")
         for i, part in enumerate(board_parts):
             j = 0
             for cell in part:
@@ -43,16 +44,16 @@ class Position:
                     j += 1
 
     def fill_figures_and_coords(self) -> None:
-        board_parts = self._fen_state.board_part.split('/')
+        board_parts = self._fen_state.board_part.split("/")
         for i, part in enumerate(board_parts):
             j = 0
             for cell in part:
                 if cell.isdigit():
                     j += int(cell)
                 else:
-                    if cell == 'K':
+                    if cell == "K":
                         self._coord_of_white_king = Coord(i, j)
-                    elif cell == 'k':
+                    elif cell == "k":
                         self._coord_of_black_king = Coord(i, j)
                     self._add_figure(cell, i, j)
                     self._board[i][j] = cell
@@ -69,12 +70,12 @@ class Position:
             self._black_coords.append(coord)
 
     def generate_fen_from_board(self) -> str:
-        fen = ''
+        fen = ""
         for line in self._board:
-            s = ''
+            s = ""
             counter = 0
             for cell in line:
-                if cell == '-':
+                if cell == "-":
                     counter += 1
                 else:
                     if counter != 0:
@@ -84,7 +85,7 @@ class Position:
             if counter != 0:
                 s += str(counter)
 
-            fen += s + '/'
+            fen += s + "/"
         fen = fen[:-1]
 
         if self._fen_state.active_color is Color.white:
@@ -93,25 +94,25 @@ class Position:
             fen += " b "
 
         if self._fen_state.white_short_castling:
-            fen += 'K'
+            fen += "K"
         if self._fen_state.white_long_castling:
-            fen += 'Q'
+            fen += "Q"
         if self._fen_state.black_short_castling:
-            fen += 'k'
+            fen += "k"
         if self._fen_state.black_long_castling:
-            fen += 'q'
+            fen += "q"
 
-        if fen[-1] == ' ':
-            fen += '- '
+        if fen[-1] == " ":
+            fen += "- "
 
         if self._fen_state.en_passant_cell is not None:
             fen += self._fen_state.el_passant_cell.chess_string_visualization()
         else:
-            fen += '- '
+            fen += "- "
 
         fen += str(self._fen_state.moves_without_pawn) + " "
         fen += str(self._fen_state.move_clock)
-        
+
 
         return fen
 
@@ -124,7 +125,7 @@ class Position:
     def show_board(self) -> None:
         for line in self._board:
             for cell in line:
-                print(cell, end=' ')
+                print(cell, end=" ")
             print()
 
     def show_moves(self) -> None:
@@ -132,25 +133,25 @@ class Position:
 
         for y, line in enumerate(self._board):
             for x, cell in enumerate(line):
-                if cell == '-':
+                if cell == "-":
                     maybe_attack = Coord(y, x)
                     counter = 0
                     for figure in figures:
                         if maybe_attack in figure.possible_moves:
                             counter += 1
                         if counter != 0:
-                            print(counter, end=' ')
+                            print(counter, end=" ")
                             break
                     else:
-                        print(cell, end=' ')
+                        print(cell, end=" ")
                 else:
                     maybe_attack = Coord(y, x)
                     for figure in figures:
                         if maybe_attack in figure.possible_moves:
-                            print('!', end=' ')
+                            print("!", end=" ")
                             break
                     else:
-                        print(cell, end=' ')
+                        print(cell, end=" ")
             print()
 
     def make_move(self, figure: Figure, move_from: Coord, move_to: Coord) -> None:

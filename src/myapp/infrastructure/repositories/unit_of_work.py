@@ -1,9 +1,10 @@
-from typing import Callable
+from collections.abc import Callable
 
 from sqlalchemy.orm import Session
 
-from src.myapp.application.ports.repositories import UserRepository
-from src.myapp.infrastructure.repositories.user_repository import SqlAlchemyUserRepository
+from src.myapp.infrastructure.repositories.user_repository import (
+    SqlAlchemyUserRepository,
+)
 
 
 class SqlAlchemyUnitOfWork:
@@ -12,7 +13,7 @@ class SqlAlchemyUnitOfWork:
         self._session: Session | None = None
         self._committed = False
 
-    def __enter__(self) -> "SqlAlchemyUnitOfWork":
+    def __enter__(self) -> SqlAlchemyUnitOfWork:
         self._session = self._session_factory()
         self.users = SqlAlchemyUserRepository(self._session)
         return self

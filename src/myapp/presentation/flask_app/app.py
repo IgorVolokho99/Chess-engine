@@ -1,7 +1,7 @@
 from flask import Flask
 
-from src.myapp.config import DevelopmentConfig
 from src.myapp.bootstrap.container import bootstrap
+from src.myapp.infrastructure.config import DevelopmentConfig
 from src.myapp.presentation.flask_app.blueprints.auth.views import auth_bp
 from src.myapp.presentation.flask_app.blueprints.main.views import main_bp
 

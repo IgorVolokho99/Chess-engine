@@ -1,5 +1,5 @@
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Callable
 
 from src.myapp.application.ports.password_hasher import PasswordHasher
 from src.myapp.application.ports.unit_of_work import UnitOfWork

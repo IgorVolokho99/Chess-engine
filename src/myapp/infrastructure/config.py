@@ -1,13 +1,11 @@
 import os
 from pathlib import Path
-from typing import Optional
 
 from dotenv import load_dotenv
 
 
 def read_secret_file(path: str) -> str:
-    """
-    Read secret from file.
+    """Read secret from file.
 
     Examples:
         Local:
@@ -15,8 +13,8 @@ def read_secret_file(path: str) -> str:
 
         Docker:
             /run/secrets/db_password
-    """
 
+    """
     secret_path = Path(path)
     PROJECT_ROOT = Path(__file__).resolve().parents[2]
     if not secret_path.is_absolute():
@@ -36,12 +34,11 @@ def read_secret_file(path: str) -> str:
 def get_secret(
         env_name: str,
         *,
-        file_env_name: Optional[str] = None,
-        default: Optional[str] = None,
+        file_env_name: str | None = None,
+        default: str | None = None,
         required: bool = False,
 ) -> str:
-    """
-    Read secret value.
+    """Read secret value.
 
     Priority:
         1. *_FILE variable, for example DB_PASSWORD_FILE
@@ -50,7 +47,6 @@ def get_secret(
 
     This is useful for both Docker secrets and local development.
     """
-
     file_env_name = file_env_name or f"{env_name}_FILE"
 
     secret_file = os.getenv(file_env_name)
@@ -66,7 +62,7 @@ def get_secret(
 
     if required:
         raise RuntimeError(
-            f"Secret is not configured. Set {file_env_name} or {env_name}."
+            f"Secret is not configured. Set {file_env_name} or {env_name}.",
         )
 
     return ""

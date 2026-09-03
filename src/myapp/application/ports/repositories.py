@@ -1,4 +1,4 @@
-from typing import Protocol, Optional
+from typing import Protocol
 
 from src.myapp.domain.entities.user import User
 
@@ -17,5 +17,5 @@ class UserRepository(Protocol):
     def get_by_user_name(self, user_name: str) -> User:
         ...
 
-    def get_by_id(self, user_id: int) -> Optional[User]:
+    def get_by_id(self, user_id: int) -> User | None:
         ...

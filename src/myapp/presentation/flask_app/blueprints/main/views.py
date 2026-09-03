@@ -1,4 +1,6 @@
-from flask import Blueprint, session, redirect, url_for, current_app, render_template
+"""Defain routes for rendering the application's main page."""
+
+from flask import Blueprint, current_app, redirect, render_template, session, url_for
 
 from src.myapp.domain.errors.user_errors import UserNotFoundError
 
@@ -6,7 +8,13 @@ main_bp = Blueprint("main", __name__)
 
 
 @main_bp.get("/")
-def index():
+def index() -> None:
+    """Render the main page for the authenticated user.
+
+    Redirects unauthenticated users to the login page. If ther user stored
+    in the session no longer exists, clears the session and redirects to the
+    login page.
+    """
     user_id = session.get("user_id")
     if user_id is None:
         return redirect(url_for("auth.login_page"))

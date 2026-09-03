@@ -1,5 +1,4 @@
 import datetime
-from typing import Optional
 
 
 class User:
@@ -8,8 +7,8 @@ class User:
             user_name: str,
             email: str,
             password_hash: str,
-            id: Optional[int] = None,
-            created_at: Optional[datetime.datetime] = None,
+            id: int | None = None,
+            created_at: datetime.datetime | None = None,
     ) -> None:
         self.id = id
         self.user_name = user_name

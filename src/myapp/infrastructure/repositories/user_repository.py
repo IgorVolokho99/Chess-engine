@@ -1,4 +1,3 @@
-from typing import Optional
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -15,10 +14,10 @@ class SqlAlchemyUserRepository:
         model = UserModel(
             email=user.email,
             username=user.user_name,
-            password_hash=user.password_hash
+            password_hash=user.password_hash,
         )
         self._session.add(model)
-        self._session.flush()  # todo Что делает?
+        self._session.flush()  # TODO Что делает?
 
         user.id = model.id
         user.created_at = model.created_at
@@ -45,7 +44,7 @@ class SqlAlchemyUserRepository:
         )
 
 
-    def get_by_id(self, user_id: int) -> Optional[User]:
+    def get_by_id(self, user_id: int) -> User | None:
         model = self._session.get(UserModel, user_id)
 
         if model is None:
