@@ -1,3 +1,5 @@
+"""Contains function-constructor."""
+
 from flask import Flask
 
 from src.myapp.bootstrap.container import bootstrap
@@ -7,11 +9,18 @@ from src.myapp.presentation.flask_app.blueprints.main.views import main_bp
 
 
 def create_app(config_object: type = DevelopmentConfig) -> Flask:
+    """Create a Flask web application.
+
+    List of actions:
+        - initializes application from config object;
+        - makes container object;
+        - registrates user cases;
+        - registrates blueprints.
+    """
     app = Flask(__name__)
     app.config.from_object(config_object)
     container = bootstrap(
         database_url=app.config["DATABASE_URL"],
-        # database_url=config_object.get_database_url(),
     )
 
     app.extensions["use_cases"] = container.use_cases

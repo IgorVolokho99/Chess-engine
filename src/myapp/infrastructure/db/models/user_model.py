@@ -1,3 +1,5 @@
+"""Provide application functionality."""
+
 import datetime
 from typing import TYPE_CHECKING
 
@@ -9,14 +11,25 @@ from src.myapp.infrastructure.db.base import Base
 if TYPE_CHECKING:
     from src.myapp.infrastructure.db import Game, Move
 
+
 class User(Base):
+    """Represent a domain component."""
+
     __tablename__ = "users"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, unique=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        unique=True,
+        autoincrement=True,
+    )
     username: Mapped[str] = mapped_column(String(30), unique=True)
     email: Mapped[str] = mapped_column(String(30), unique=True)
     password_hash: Mapped[str] = mapped_column(String(500))
-    created_at: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.now)
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now,
+    )
 
     games: Mapped[list[Game]] = relationship(
         back_populates="user",

@@ -23,6 +23,19 @@ dev = [
 
 [tool.ruff.lint]
 select = ["ALL"]
+ignore = [
+    # Mutually exclusive with the corresponding enabled rules (D211, D212),
+    # and redundant with Ruff's formatter, respectively.
+]
 exclude = [
     "tests/*"
 ]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 250
+
+[tool.ruff.lint.pylint]
+max-args = 8
+max-branches = 250
+max-returns = 30
+max-statements = 800

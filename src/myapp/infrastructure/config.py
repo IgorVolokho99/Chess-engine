@@ -1,3 +1,5 @@
+"""Provide application functionality."""
+
 import os
 from pathlib import Path
 
@@ -16,27 +18,29 @@ def read_secret_file(path: str) -> str:
 
     """
     secret_path = Path(path)
-    PROJECT_ROOT = Path(__file__).resolve().parents[2]
+    project_root = Path(__file__).resolve().parents[2]
     if not secret_path.is_absolute():
-        secret_path = PROJECT_ROOT / secret_path
+        secret_path = project_root / secret_path
 
     if not secret_path.exists():
-        raise RuntimeError(f"Secret file does not exist: {secret_path}")
+        msg = f"Secret file does not exist: {secret_path}"
+        raise RuntimeError(msg)
 
     value = secret_path.read_text(encoding="utf-8").strip()
 
     if not value:
-        raise RuntimeError(f"Secret file is empty: {secret_path}")
+        msg = f"Secret file is empty: {secret_path}"
+        raise RuntimeError(msg)
 
     return value
 
 
 def get_secret(
-        env_name: str,
-        *,
-        file_env_name: str | None = None,
-        default: str | None = None,
-        required: bool = False,
+    env_name: str,
+    *,
+    file_env_name: str | None = None,
+    default: str | None = None,
+    required: bool = False,
 ) -> str:
     """Read secret value.
 
@@ -61,14 +65,16 @@ def get_secret(
         return default
 
     if required:
+        msg = f"Secret is not configured. Set {file_env_name} or {env_name}."
         raise RuntimeError(
-            f"Secret is not configured. Set {file_env_name} or {env_name}.",
+            msg,
         )
 
     return ""
 
 
 def get_database_password() -> str:
+    """Perform this operation."""
     return get_secret(
         "DB_PASSWORD",
         file_env_name="DB_PASSWORD_FILE",
@@ -77,21 +83,28 @@ def get_database_password() -> str:
 
 
 def get_database_url() -> str:
-    PROJECT_ROOT = Path(__file__).resolve().parents[2]
-    load_dotenv(PROJECT_ROOT / ".env.local", override=False)
+    """Perform this operation."""
+    project_root = Path(__file__).resolve().parents[2]
+    load_dotenv(project_root / ".env.local", override=False)
     return f"{os.getenv('DB_DRIVER')}://{os.getenv('POSTGRES_USER')}:{get_database_password()}@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DB')}"
 
 
 class BaseConfig:
-    SECRET_KEY = "dev-secret-key"
+    """Represent a domain component."""
+
+    SECRET_KEY = get_secret("SECRET_KEY", required=True)
     DATABASE_URL = get_database_url()
 
 
 class DevelopmentConfig(BaseConfig):
+    """Represent a domain component."""
+
     TESTING = True
     DATABASE_URL = get_database_url()
 
 
 class ProductionConfig(BaseConfig):
+    """Represent a domain component."""
+
     DEBUG = False
     DATABASE_URL = get_database_url()

@@ -19,4 +19,3 @@ class FigureType(Enum):
     bishop = "bishop"
     knight = "knight"
     pawn = "pawn"
-

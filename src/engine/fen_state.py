@@ -1,4 +1,5 @@
 """Модуль, который содержит реализацию и хранения параметров fen-нотации."""
+
 from src.engine.coord import CoordEnPassant
 from src.engine.enums import Color
 
@@ -23,6 +24,7 @@ class FenState:
         self.parse_fen(fen)
 
     def parse_fen(self, fen: str) -> None:
+        """Perform this operation."""
         fen_parts = fen.split(" ")
 
         self.board_part = fen_parts[0]

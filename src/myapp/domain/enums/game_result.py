@@ -1,7 +1,11 @@
-from enum import Enum
+"""Provide application functionality."""
+
+from enum import StrEnum
 
 
-class GameResult(str, Enum):
+class GameResult(StrEnum):
+    """Represent a domain component."""
+
     WHITE_WIN = "WHITE_WIN"
     BLACK_WIN = "BLACK_WIN"
     DRAW = "DRAW"

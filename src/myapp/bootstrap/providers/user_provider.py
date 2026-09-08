@@ -1,4 +1,5 @@
+"""Provide application functionality."""
 
 
 class UserProvider:
-    pass
+    """Represent a domain component."""

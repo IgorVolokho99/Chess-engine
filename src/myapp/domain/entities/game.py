@@ -1,22 +1,30 @@
-import datetime
+"""Provide application functionality."""
 
-from src.myapp.domain.enums.game_result import GameResult
-from src.myapp.domain.enums.status import GameStatus
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import datetime
+
+    from src.myapp.domain.enums.game_result import GameResult
+    from src.myapp.domain.enums.status import GameStatus
 
 
 class Game:
+    """Represent a domain component."""
+
     def __init__(
-            self,
-            id: int,
-            user_id: int,
-            status: GameStatus,
-            result: GameResult,
-            fen_start: str,
-            fen_current: str,
-            created_at: datetime.datetime,
-            finished_at: datetime.datetime,
+        self,
+        entity_id: int,
+        user_id: int,
+        status: GameStatus,
+        result: GameResult,
+        fen_start: str,
+        fen_current: str,
+        created_at: datetime.datetime,
+        finished_at: datetime.datetime,
     ) -> None:
-        self.id = id
+        """Initialize the instance."""
+        self.id = entity_id
         self.user_id = user_id
         self.status = status
         self.result = result

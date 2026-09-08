@@ -1,8 +1,11 @@
-from enum import Enum
+"""Provide application functionality."""
+
+from enum import StrEnum
 
 
-class GameStatus(str, Enum):
+class GameStatus(StrEnum):
+    """Represent a domain component."""
+
     ACTIVE = "ACTIVE"
     FINISHED = "FINISHED"
     ABANDONED = "ABANDONED"
-

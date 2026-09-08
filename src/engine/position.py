@@ -1,4 +1,5 @@
 """Модуль, который содержит реализацию шахматной позиции."""
+
 from src.engine.coord import Coord
 from src.engine.enums import Color
 from src.engine.fen_state import FenState
@@ -32,7 +33,28 @@ class Position:
         self.fill_figures_and_coords()
         self.generate_moves()
 
+    @property
+    def board(self) -> list[list[str]]:
+        """Return the mutable board representation."""
+        return self._board
+
+    @property
+    def fen_state(self) -> FenState:
+        """Return the parsed state of the current FEN position."""
+        return self._fen_state
+
+    @property
+    def white_figures(self) -> list[Figure]:
+        """Return the white figures in this position."""
+        return self._white_figures
+
+    @property
+    def black_figures(self) -> list[Figure]:
+        """Return the black figures in this position."""
+        return self._black_figures
+
     def fill_board(self) -> None:
+        """Populate the board from the piece-placement part of the FEN."""
         board_parts = self._fen_state.board_part.split("/")
         for i, part in enumerate(board_parts):
             j = 0
@@ -44,6 +66,7 @@ class Position:
                     j += 1
 
     def fill_figures_and_coords(self) -> None:
+        """Create figure objects and cache the king coordinates."""
         board_parts = self._fen_state.board_part.split("/")
         for i, part in enumerate(board_parts):
             j = 0
@@ -70,6 +93,7 @@ class Position:
             self._black_coords.append(coord)
 
     def generate_fen_from_board(self) -> str:
+        """Build a FEN string from the current board and state."""
         fen = ""
         for line in self._board:
             s = ""
@@ -113,23 +137,36 @@ class Position:
         fen += str(self._fen_state.moves_without_pawn) + " "
         fen += str(self._fen_state.move_clock)
 
-
         return fen
 
     def generate_moves(self) -> None:
-        active_figures = self._white_figures if self._fen_state.active_color == Color.white else self._black_figures
-        coord_of_king = self._coord_of_white_king if self._fen_state.active_color == Color.white else self._coord_of_black_king
+        """Generate legal moves for every figure in the active position."""
+        active_figures = (
+            self._white_figures
+            if self._fen_state.active_color == Color.white
+            else self._black_figures
+        )
+        coord_of_king = (
+            self._coord_of_white_king
+            if self._fen_state.active_color == Color.white
+            else self._coord_of_black_king
+        )
         for figure in active_figures:
             figure.generate_move(self._board, coord_of_king, self._fen_state)
 
     def show_board(self) -> None:
+        """Perform this operation."""
         for line in self._board:
-            for cell in line:
-                print(cell, end=" ")
-            print()
+            for _cell in line:
+                pass
 
     def show_moves(self) -> None:
-        figures = self._white_figures if self._fen_state.active_color is Color.white else self._black_figures
+        """Perform this operation."""
+        figures = (
+            self._white_figures
+            if self._fen_state.active_color is Color.white
+            else self._black_figures
+        )
 
         for y, line in enumerate(self._board):
             for x, cell in enumerate(line):
@@ -140,21 +177,19 @@ class Position:
                         if maybe_attack in figure.possible_moves:
                             counter += 1
                         if counter != 0:
-                            print(counter, end=" ")
                             break
                     else:
-                        print(cell, end=" ")
+                        pass
                 else:
                     maybe_attack = Coord(y, x)
                     for figure in figures:
                         if maybe_attack in figure.possible_moves:
-                            print("!", end=" ")
                             break
                     else:
-                        print(cell, end=" ")
-            print()
+                        pass
 
     def make_move(self, figure: Figure, move_from: Coord, move_to: Coord) -> None:
+        """Perform this operation."""
         if move_to is Coord:
             self._board[move_to.y][move_to.x] = self._board[move_from.y][move_from.x]
             figure.coord = move_to
@@ -162,12 +197,14 @@ class Position:
             pass
 
     def is_win(self) -> True:
-        active_figures = self._white_figures if self._fen_state.active_color is Color.white else self._black_figures
+        """Perform this operation."""
+        active_figures = (
+            self._white_figures
+            if self._fen_state.active_color is Color.white
+            else self._black_figures
+        )
 
-        for figure in active_figures:
-            if figure.possible_moves:
-                return False
-        return True
+        return all(not figure.possible_moves for figure in active_figures)
 
 
 if __name__ == "__main__":

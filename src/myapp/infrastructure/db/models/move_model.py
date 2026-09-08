@@ -1,3 +1,5 @@
+"""Provide application functionality."""
+
 import datetime
 from typing import TYPE_CHECKING
 
@@ -9,7 +11,10 @@ from src.myapp.infrastructure.db.base import Base
 if TYPE_CHECKING:
     from src.myapp.infrastructure.db import Game, User
 
+
 class Move(Base):
+    """Represent a domain component."""
+
     __tablename__ = "moves"
 
     id: [int] = Column(Integer, unique=True, autoincrement=True, primary_key=True)

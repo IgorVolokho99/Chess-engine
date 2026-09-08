@@ -1,3 +1,5 @@
+"""Module that contains auth views."""
+
 from flask import (
     Blueprint,
     current_app,
@@ -24,12 +26,18 @@ auth_bp = Blueprint(
 
 
 @auth_bp.get("/register")
-def register_page():
+def register_page() -> None:
+    """View for presentation registration page."""
     return render_template("auth/register.html")
 
 
 @auth_bp.post("/register")
-def register_action():
+def register_action() -> None:
+    """View for user registration.
+
+    If user gives invalid data(used e-mail) redirect to register page.
+    If user gives valid data redirect to main page.
+    """
     command = RegisterUserCommand(
         user_name=request.form["user_name"],
         email=request.form["email"],
@@ -48,12 +56,19 @@ def register_action():
 
 
 @auth_bp.get("/login")
-def login_page():
+def login_page() -> None:
+    """View for presentation log in page."""
     return render_template("auth/login.html")
 
 
 @auth_bp.post("/login")
-def login_action():
+def login_action() -> None:
+    """View for log in of user.
+
+    If user gives invalid credentials redirect to login page.
+    If user gives valid credentials clear current session and
+    save new data into session.
+    """
     command = LoginUserCommand(
         user_name=request.form["user_name"],
         password=request.form["password"],
@@ -74,10 +89,10 @@ def login_action():
 
 
 @auth_bp.get("/profile")
-def profile_page():
+def profile_page() -> None:
     """View for profile of user.
-    
-    If user id equals None redirects to login page. 
+
+    If user id equals None redirects to login page.
     """
     user_id = session.get("user_id")
 

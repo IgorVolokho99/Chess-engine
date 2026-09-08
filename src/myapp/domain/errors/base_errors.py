@@ -2,4 +2,4 @@
 
 
 class DomainError(Exception):
-    pass
+    """Represent a domain component."""

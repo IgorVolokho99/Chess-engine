@@ -1,34 +1,42 @@
+"""Provide application functionality."""
+
+from typing import TYPE_CHECKING
 
 from sqlalchemy import select
-from sqlalchemy.orm import Session
 
 from src.myapp.domain.entities.user import User
 from src.myapp.infrastructure.db.models.user_model import User as UserModel
 
+if TYPE_CHECKING:
+    from sqlalchemy.orm import Session
+
 
 class SqlAlchemyUserRepository:
+    """Represent a domain component."""
+
     def __init__(self, session: Session) -> None:
+        """Initialize the instance."""
         self._session = session
 
     def add(self, user: User) -> None:
+        """Perform this operation."""
         model = UserModel(
             email=user.email,
             username=user.user_name,
             password_hash=user.password_hash,
         )
         self._session.add(model)
-        self._session.flush()  # TODO Что делает?
+        self._session.flush()
 
         user.id = model.id
         user.created_at = model.created_at
 
     def get_by_user_name(self, user_name: str) -> User | None:
-        stmt = (
-            select(
-                UserModel,
-            ).where(
-                UserModel.username == user_name,
-            )
+        """Perform this operation."""
+        stmt = select(
+            UserModel,
+        ).where(
+            UserModel.username == user_name,
         )
         model = self._session.scalar(stmt)
 
@@ -43,8 +51,8 @@ class SqlAlchemyUserRepository:
             created_at=model.created_at,
         )
 
-
     def get_by_id(self, user_id: int) -> User | None:
+        """Perform this operation."""
         model = self._session.get(UserModel, user_id)
 
         if model is None:
