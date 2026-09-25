@@ -16,7 +16,7 @@ from src.myapp.infrastructure.db.base import Base
 # so this will not override them.
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
-load_dotenv(PROJECT_ROOT / ".env.local", override=False)
+# load_dotenv(PROJECT_ROOT / ".env", override=False)
 
 # Import all models so Base.metadata knows about them.
 

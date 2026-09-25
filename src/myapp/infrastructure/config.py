@@ -5,6 +5,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+load_dotenv()
 
 def read_secret_file(path: str) -> str:
     """Read secret from file.
@@ -84,15 +85,12 @@ def get_database_password() -> str:
 
 def get_database_url() -> str:
     """Perform this operation."""
-    project_root = Path(__file__).resolve().parents[2]
-    load_dotenv(project_root / ".env.local", override=False)
     return f"{os.getenv('DB_DRIVER')}://{os.getenv('POSTGRES_USER')}:{get_database_password()}@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DB')}"
 
 
 class BaseConfig:
     """Represent a domain component."""
 
-    SECRET_KEY = get_secret("SECRET_KEY", required=True)
     DATABASE_URL = get_database_url()
 
 

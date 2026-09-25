@@ -65,3 +65,11 @@ docker compose down --volumes
 ```
 docker compose run --rm --build migrations
 ```
+
+### Create local development user
+After migrations have been applied, create (or reset) the account with login
+`1` and password `1`:
+
+```
+uv run python -m scripts.create_user_1
+```

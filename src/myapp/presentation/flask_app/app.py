@@ -19,6 +19,7 @@ def create_app(config_object: type = DevelopmentConfig) -> Flask:
     """
     app = Flask(__name__)
     app.config.from_object(config_object)
+
     container = bootstrap(
         database_url=app.config["DATABASE_URL"],
     )

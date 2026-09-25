@@ -6,11 +6,11 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, relationship
 
+from src.myapp.domain.enums.game_result import GameResult  # noqa: TC001
+from src.myapp.domain.enums.status import GameStatus  # noqa: TC001
 from src.myapp.infrastructure.db.base import Base
 
 if TYPE_CHECKING:
-    from src.myapp.domain.enums.game_result import GameResult
-    from src.myapp.domain.enums.status import GameStatus
     from src.myapp.infrastructure.db import Move, User
 
 
