@@ -44,7 +44,7 @@ class SqlAlchemyUserRepository:
             return None
 
         return User(
-            id=model.id,
+            entity_id=model.id,
             user_name=model.username,
             email=model.email,
             password_hash=model.password_hash,

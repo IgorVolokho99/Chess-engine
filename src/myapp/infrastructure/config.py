@@ -12,14 +12,14 @@ def read_secret_file(path: str) -> str:
 
     Examples:
         Local:
-            secrets/db_password.txt
+            secrets/postgres_password.txt
 
         Docker:
-            /run/secrets/db_password
+            /run/secrets/postgres_password
 
     """
     secret_path = Path(path)
-    project_root = Path(__file__).resolve().parents[2]
+    project_root = Path(__file__).resolve().parents[3]
     if not secret_path.is_absolute():
         secret_path = project_root / secret_path
 
@@ -46,7 +46,7 @@ def get_secret(
     """Read secret value.
 
     Priority:
-        1. *_FILE variable, for example DB_PASSWORD_FILE
+        1. *_FILE variable, for example POSTGRES_PASSWORD_FILE
         2. direct variable, for example DB_PASSWORD
         3. default value
 
@@ -78,14 +78,14 @@ def get_database_password() -> str:
     """Perform this operation."""
     return get_secret(
         "DB_PASSWORD",
-        file_env_name="DB_PASSWORD_FILE",
+        file_env_name="POSTGRES_PASSWORD_FILE",
         required=True,
     )
 
 
 def get_database_url() -> str:
     """Perform this operation."""
-    return f"{os.getenv('DB_DRIVER')}://{os.getenv('POSTGRES_USER')}:{get_database_password()}@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DB')}"
+    return f"{os.getenv('POSTGRES_DRIVER')}://{os.getenv('POSTGRES_USER')}:{get_database_password()}@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DB')}"
 
 
 class BaseConfig:

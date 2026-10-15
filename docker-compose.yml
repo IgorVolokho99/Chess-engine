@@ -12,7 +12,7 @@ services:
       - .env.compose
 
     secrets:
-      - db_password
+      - postgres_password
 
     volumes:
       - psql_data:/var/lib/postgresql/data
@@ -41,7 +41,7 @@ services:
       - .env.compose
 
     secrets:
-      - db_password
+      - postgres_password
 
     depends_on:
       marianet-postgres:
@@ -67,7 +67,7 @@ services:
       - .env.compose
     
     secrets:
-      - db_password
+      - postgres_password
 
     depends_on:
       marianet-postgres:
@@ -87,5 +87,5 @@ networks:
     driver: bridge 
 
 secrets:
-  db_password:
-    file: src/secrets/db_password.txt
+  postgres_password:
+    file: secrets/postgres_password.txt
